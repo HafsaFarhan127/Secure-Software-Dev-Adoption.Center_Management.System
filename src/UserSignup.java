@@ -1,3 +1,4 @@
+package src;
 
 import java.sql.*;
 import javafx.event.ActionEvent;
@@ -31,6 +32,9 @@ public class UserSignup {
     private TextField roleField = new TextField();
     private TextField firstNameField = new TextField();
     private TextField lastNameField = new TextField();
+    private TextField dobField = new TextField();
+    private TextField phoneField = new TextField();
+    private TextField genderField = new TextField();
     private String hashAlgo="SHA-256";
 
 
@@ -50,7 +54,9 @@ public class UserSignup {
 
 
 
-            UserSignUPLayout.getChildren().addAll(new Label("Welcome !"), new Label("Enter your username:"), usernameField,new Label("Enter your password:"),PasswordField,new Label("Enter your role:"),roleField,new Label("Enter your First Name:"),firstNameField,new Label("Enter your Last Name:"),lastNameField, RegisterUserButton);
+            UserSignUPLayout.getChildren().addAll(new Label("Welcome !"), new Label("Enter your username ID:"), usernameField,new Label("Enter your password:"),PasswordField,new Label("Enter your role:"),roleField,
+                    new Label("Enter your First Name:"),firstNameField,new Label("Enter your Last Name:"),lastNameField, new Label("Enter your Date of Birth in dd-mm-yyyy format:"),dobField,
+                    new Label("Enter your phone number:"),phoneField,new Label("Enter your gender:"),genderField, RegisterUserButton);
                     //this line takes all the user inputs and then uses them as params to send the sql query.
 
             UserSignUpScene = new Scene(UserSignUPLayout, 300,Region.USE_COMPUTED_SIZE); //(stage,width,length:use computed size auto calculates the length with content inside)
@@ -64,7 +70,7 @@ public class UserSignup {
         private void registerUser(){
 
             //this is all within the same scope still so its like js front end we just get the values from the textfields itself
-            String username = usernameField.getText();
+            Integer userId = Integer.valueOf(usernameField.getText());
             byte[] salt=createSalt();
             String password = null;
             try {
@@ -75,17 +81,23 @@ public class UserSignup {
             String role = roleField.getText();
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
+            String dob= dobField.getText();
+            String phone= phoneField.getText();
+            String gender=genderField.getText();
 
             Connection con = DBUtils.establishConnection();
-            String query = "INSERT INTO users (username,role,firstname,lastname,salt,password)  VALUES (?, ?, ?, ?, ?,?);";
+            String query = "INSERT INTO user (userId,firstname,lastname,dob,phone,gender,role,password,salt)  VALUES (?, ?, ?, ?, ?,?);";
             try{
                     PreparedStatement statement = con.prepareStatement(query);
-                    statement.setString(1, username); //here we are binding the ? to the variable storing userInput to pass sql query
-                    statement.setString(2, role); //this is a way to protect against SQLi.
-                    statement.setString(3, firstName);
-                    statement.setString(4, lastName);
-                    statement.setString(5, Arrays.toString(salt));  //typecasted it to strings because byte cant be put here as db has varchar value for salt
-                    statement.setString(6, password);
+                    statement.setInt(1, userId); //here we are binding the ? to the variable storing userInput to pass sql query
+                    statement.setString(2, firstName); //this is a way to protect against SQLi.
+                    statement.setString(3, lastName);
+                    statement.setString(4, dob);
+                    statement.setString(5, phone);
+                    statement.setString(6, gender);
+                    statement.setString(7, role);
+                    statement.setString(8, password);
+                    statement.setString(9, Arrays.toString(salt));  //typecasted it to strings because byte cant be put here as db has varchar value for salt
 
                 //System.out.println(statement.toString());
                     int rs = statement.executeUpdate(); //for insert or updating we use executeUpdate

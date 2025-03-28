@@ -1,3 +1,4 @@
+package src;
 
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
@@ -61,10 +62,12 @@ public class UserLogin {
         stage.show();
     }
 
-    private void authenticate() throws NoSuchAlgorithmException {
+    /// this method authenticates the user and returns their role
+    private String authenticate() throws NoSuchAlgorithmException {
         String username = usernameField.getText();
         String password = UserSignup.generateHash(passwordField.getText(),"SHA-256",getSalt(username));
         Connection con = DBUtils.establishConnection();
+        String role = "";
         String query = "SELECT * FROM users WHERE username =? AND password=? ;";
 
         try {
@@ -77,6 +80,8 @@ public class UserLogin {
             if (rs.next()) {
                 UserChangePassword changePassword = new UserChangePassword(stage, username);
                 changePassword.initializeComponents();
+                 role=rs.getString("role");  //this is how you get a field from sql
+                System.out.println(role);
             } else {
                 showAlert("Authentication Failed", "Invalid username or password.");
             }
@@ -87,7 +92,8 @@ public class UserLogin {
             //But we will remove the above line, and display an alert to the user when the app is deployed
             showAlert("Database Error", "Failed to connect to the database.");
         }
-    }
+        return role;
+        }
 
     public static byte[] getSalt(String username) {
         Connection con = DBUtils.establishConnection();
