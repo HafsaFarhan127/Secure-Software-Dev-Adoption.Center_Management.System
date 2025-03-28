@@ -68,7 +68,7 @@ public class UserLogin {
         String password = UserSignup.generateHash(passwordField.getText(),"SHA-256",getSalt(username));
         Connection con = DBUtils.establishConnection();
         String role = "";
-        String query = "SELECT * FROM users WHERE username =? AND password=? ;";
+        String query = "SELECT * FROM user WHERE username =? AND password=? ;";
 
         try {
             PreparedStatement statement = con.prepareStatement(query);

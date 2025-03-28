@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class DBUtils {
     private static String url = "jdbc:mysql://localhost:3306/ssw_project";
-    private static String appUsername = "hafsa";  //here i changed from root to user
-    private static String appPassword = "1234"; //insecure practice but i put a password also and am hardcoding here but its for dev purposes
+    private static String appUsername = "root";  //here i changed from root to user
+    private static String appPassword = ""; //insecure practice but i put a password also and am hardcoding here but its for dev purposes
 
     public static Connection establishConnection(){
         Connection con = null;

@@ -86,13 +86,13 @@ public class UserSignup {
             String gender=genderField.getText();
 
             Connection con = DBUtils.establishConnection();
-            String query = "INSERT INTO user (userId,firstname,lastname,dob,phone,gender,role,password,salt)  VALUES (?, ?, ?, ?, ?,?);";
+            String query = "INSERT INTO user (userId,firstname,lastname,dob,phone,gender,role,password,salt)  VALUES (?, ?, ?, ?, ?,?,?,?,?);";
             try{
                     PreparedStatement statement = con.prepareStatement(query);
                     statement.setInt(1, userId); //here we are binding the ? to the variable storing userInput to pass sql query
                     statement.setString(2, firstName); //this is a way to protect against SQLi.
                     statement.setString(3, lastName);
-                    statement.setString(4, dob);
+                    statement.setString(4, STR_TO_DATE(dob,''));  // need to fix this
                     statement.setString(5, phone);
                     statement.setString(6, gender);
                     statement.setString(7, role);
