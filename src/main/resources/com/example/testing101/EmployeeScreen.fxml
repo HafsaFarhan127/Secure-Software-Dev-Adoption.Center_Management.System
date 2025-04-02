@@ -1,17 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263F73;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testing101.Employee">
    <children>
-      <Label fx:id="welcomeLabel" layoutX="39.0" layoutY="32.0" prefHeight="38.0" prefWidth="375.0" textFill="WHITE">
+      <Label fx:id="welcomeLabel" layoutX="21.0" layoutY="32.0" prefHeight="38.0" textFill="#f5f5dcd9">
          <font>
             <Font size="26.0" />
          </font>
       </Label>
-      <Button fx:id="logOutButton" layoutX="271.0" layoutY="259.0" mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
+      <Button fx:id="logOutButton" layoutX="502.0" layoutY="32.0" mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
+      <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="83.0" prefHeight="100.0" prefWidth="559.0" spacing="60.0" style="-fx-background-color: #FFD1DC;">
+         <children>
+            <Button mnemonicParsing="false" style="-fx-border-style: shadow;" text="Book Appointment" textAlignment="CENTER">
+               <effect>
+                  <DropShadow height="0.0" offsetX="1.0" offsetY="1.0" radius="0.0" width="0.0">
+                     <color>
+                        <Color red="0.7176470756530762" green="0.6352941393852234" blue="0.6352941393852234" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Button mnemonicParsing="false" text="View Pets">
+               <effect>
+                  <DropShadow height="0.0" offsetX="1.0" offsetY="1.0" radius="0.0" width="0.0">
+                     <color>
+                        <Color red="0.7176470756530762" green="0.6352941393852234" blue="0.6352941393852234" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <Button mnemonicParsing="false" text="Register Customer">
+               <effect>
+                  <DropShadow height="0.0" offsetX="1.0" offsetY="1.0" radius="0.0" width="0.0">
+                     <color>
+                        <Color red="0.7176470756530762" green="0.6352941393852234" blue="0.6352941393852234" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+         </children>
+         <padding>
+            <Insets left="70.0" right="20.0" />
+         </padding>
+      </HBox>
+      <VBox layoutX="21.0" layoutY="196.0" prefHeight="170.0" prefWidth="559.0" style="-fx-background-color: #FFD1DC;">
+
+      <!-- wanna dynamically add the requests to be approved or declined here. -->
+
+      </VBox>
    </children>
 </AnchorPane>
