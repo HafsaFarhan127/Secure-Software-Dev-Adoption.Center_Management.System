@@ -40,9 +40,10 @@
             <RadioButton layoutX="213.0" layoutY="176.0" mnemonicParsing="false" onAction="#setRoleToManager" text="Manager" />
             <RadioButton layoutX="213.0" layoutY="208.0" mnemonicParsing="false" onAction="#setRoleToDE" text="Desk employee" />
             <Button fx:id="registerButton" layoutX="297.0" layoutY="355.0" mnemonicParsing="false" onAction="#registerUserAction" style="-fx-background-color: #263F73;" text="Register" textFill="WHITE" />
-            <Label fx:id="errorLabelField" layoutX="27.0" layoutY="359.0" prefHeight="17.0" prefWidth="179.0" textFill="#f40202" />
+            <Label fx:id="errorLabelField" layoutX="26.0" layoutY="5.0" prefHeight="17.0" prefWidth="333.0" textFill="#f40202" />
             <PasswordField fx:id="passwordField" layoutX="211.0" layoutY="139.0" />
             <TextField fx:id="firstNameField" layoutX="211.0" layoutY="65.0" />
+            <Button layoutX="236.0" layoutY="355.0" mnemonicParsing="false" onAction="#goBackButton" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Back" textFill="WHITE" />
          </children>
       </AnchorPane>
    </right>

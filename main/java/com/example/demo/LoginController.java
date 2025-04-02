@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +36,14 @@ public class LoginController {
             loginMessageLabel.setText("Invalid credentials");
         }
     }
+    public void changePasswordButton(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("changePassword.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     /// this method authenticates the user and returns their role
     private void authenticate(ActionEvent event) throws NoSuchAlgorithmException {
@@ -41,18 +51,19 @@ public class LoginController {
         String password= passwordField.getText();
         try {
             byte[] salt = getSalt(username);
+            //String salt = "no salt";
             if (salt == null) {
                 showAlert("Error", "Invalid password.");
                 return;
             }
-            //String hashedPassword = UserSignup.generateHash(password, "SHA-256", salt);
+            String hashedPassword = AddUser.generateHash(password, "SHA-256", salt);
             Connection con = DBUtils.establishConnection();
             String role = "";
             String query = "SELECT * FROM user WHERE userId =? AND password=? ;";
 
             PreparedStatement statement = con.prepareStatement(query);
             statement.setString(1, username); //here we are binding the ? to the variable storing userInput to pass sql query
-            statement.setString(2, password); //this is a way to protect against SQLi.
+            statement.setString(2, hashedPassword); //this is a way to protect against SQLi.
             //System.out.println(statement.toString());
             ResultSet rs = statement.executeQuery(); //this takes in no param it automatically runs the query cuz of code in line 52.
             //this is called prepared statements and it works because

@@ -31,7 +31,6 @@ public class Manager {
     public void logOutAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("loginScreen.fxml"));
         Parent root = loader.load();
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

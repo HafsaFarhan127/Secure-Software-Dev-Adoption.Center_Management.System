@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -36,7 +37,18 @@ public class AddUser {
     private Button registerButton;
     @FXML
     private Label errorLabelField;
+    private Stage stage;
+    private Scene scene;
+
     private String hashAlgo="SHA-256";
+    public void goBackButton(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ManagerScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     public void setRoleToManager(ActionEvent event){
         this.role = "manager";
     }
@@ -115,7 +127,7 @@ public class AddUser {
         }
 
         //for role validation
-        if (this.role == "") {
+        if (this.role == null) {
             errorLabelField.setText("Please select a role!");
             return false;
         }
