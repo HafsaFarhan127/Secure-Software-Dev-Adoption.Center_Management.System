@@ -20,7 +20,7 @@
       <Button fx:id="logOutButton" layoutX="502.0" layoutY="32.0" mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="83.0" prefHeight="100.0" prefWidth="559.0" spacing="60.0" style="-fx-background-color: #FFD1DC;">
          <children>
-            <Button mnemonicParsing="false" style="-fx-border-style: shadow;" text="Book Appointment" textAlignment="CENTER">
+            <Button fx:id="bookAptButton" mnemonicParsing="false" onAction="#bookApt" style="-fx-border-style: shadow;" text="Book Appointment" textAlignment="CENTER">
                <effect>
                   <DropShadow height="0.0" offsetX="1.0" offsetY="1.0" radius="0.0" width="0.0">
                      <color>
@@ -29,7 +29,7 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Button mnemonicParsing="false" text="View Pets">
+            <Button fx:id="viewPetsButton" mnemonicParsing="false" onAction="#viewPetsButton" text="View Pets">
                <effect>
                   <DropShadow height="0.0" offsetX="1.0" offsetY="1.0" radius="0.0" width="0.0">
                      <color>
@@ -38,7 +38,7 @@
                   </DropShadow>
                </effect>
             </Button>
-            <Button mnemonicParsing="false" text="Register Customer">
+            <Button fx:id="registerCustomerButton" mnemonicParsing="false" onAction="#registerCustomer" text="Register Customer">
                <effect>
                   <DropShadow height="0.0" offsetX="1.0" offsetY="1.0" radius="0.0" width="0.0">
                      <color>

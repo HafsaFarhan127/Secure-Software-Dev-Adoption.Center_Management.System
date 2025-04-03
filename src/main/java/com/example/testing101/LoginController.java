@@ -48,6 +48,8 @@ public class LoginController {
     /// this method authenticates the user and returns their role
     private void authenticate(ActionEvent event) throws NoSuchAlgorithmException {
         String username = usernameField.getText();
+        SessionManager.getInstance().setUsername(username); // Store username
+
         String password= passwordField.getText();
         try {
             byte[] salt = getSalt(username);
