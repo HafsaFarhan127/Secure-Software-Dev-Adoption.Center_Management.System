@@ -48,4 +48,21 @@ public class InputValidationFunctions {
     public static boolean isValidQatariPhoneNumber(String phoneNumber) {
         return phoneNumber.matches("^(?:\\+974|974)?(3[0-9]{7}|5[0-9]{7}|6[0-9]{7}|7[0-9]{7})$");
     }  //here for some reason when im just using \ its giing mev an error not sure why?
+
+    // 8. Regex pattern to match valid times between 9 AM and 5 PM inclusive
+
+    public static boolean isTimeValid(String timeStr) {
+        String regex =
+                "^(?i)" + // Case-insensitive
+                        "(" +
+                        // 12-hour format (9:00 AM to 11:59 AM)
+                        "(0?[9]|10|11):[0-5][0-9]\\s*([AP]M)" + "|" +
+                        // 12-hour format (12:00 PM to 4:59 PM and 5:00 PM)
+                        "((0?[12]|0?[1-4]):[0-5][0-9]\\s*PM|5:00\\s*PM)" + "|" +
+                        // 24-hour format (09:00 to 17:00)
+                        "((09|1[0-6]):[0-5][0-9]|17:00)" +
+                        ")$";
+
+        return Pattern.matches(regex, timeStr);
+    }
 }
