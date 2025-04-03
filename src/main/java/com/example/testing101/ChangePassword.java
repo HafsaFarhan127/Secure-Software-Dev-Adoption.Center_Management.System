@@ -48,7 +48,7 @@ public class ChangePassword {
             throw new RuntimeException(e);
         }
         Connection con = DBUtils.establishConnection();
-        String query = "UPDATE user SET password=?,salt=? WHERE userId =?;";
+        String query = "UPDATE users SET password=?,salt=? WHERE userId =?;";
         try{
             PreparedStatement statement = con.prepareStatement(query);
             statement.setString(1, newPassword);

@@ -26,8 +26,7 @@ public class AddCustomer {
     private Label errorLabelField;
     @FXML
     private Button registerButton;
-    @FXML
-    private TextField customerIdField; //here we add @FXML when we set the scope to private else if its public you wouldnt need to
+     //here we add @FXML when we set the scope to private else if its public you wouldnt need to
     @FXML
     private TextField lastNameField;
     @FXML
@@ -64,7 +63,6 @@ public class AddCustomer {
     }
 
     @FXML private boolean registerCustomerAction(ActionEvent event) throws IOException {
-        Integer customerId = Integer.valueOf(customerIdField.getText());
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
         String dob = dobField.getText();
@@ -102,15 +100,14 @@ public class AddCustomer {
         }
 
         Connection con = DBUtils.establishConnection();
-        String query = "INSERT INTO customers (customerId,gender,date_of_birth,contactNo,firstname,lastname)  VALUES (?, ?, ?, ?, ?,?);";
+        String query = "INSERT INTO customers (gender,date_of_birth,contactNo,firstname,lastname)  VALUES (?, ?, ?, ?, ?);";
         try{
             PreparedStatement statement = con.prepareStatement(query);
-            statement.setInt(1, customerId); //here we are binding the ? to the variable storing userInput to pass sql query
-            statement.setString(2, gender); //this is a way to protect against SQLi.
-            statement.setString(3, formattedDob);
-            statement.setString(4,phone);  // need to fix this
-            statement.setString(5, firstName);
-            statement.setString(6, lastName);
+            statement.setString(1, gender); //this is a way to protect against SQLi.
+            statement.setString(2, formattedDob);
+            statement.setString(3,phone);
+            statement.setString(4, firstName);
+            statement.setString(5, lastName);
 
             //System.out.println(statement.toString());
             int rs = statement.executeUpdate(); //for insert or updating we use executeUpdate

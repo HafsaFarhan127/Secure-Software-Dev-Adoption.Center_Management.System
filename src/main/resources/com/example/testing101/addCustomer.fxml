@@ -23,13 +23,11 @@
    <center>
       <AnchorPane prefHeight="400.0" prefWidth="378.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="24.0" layoutY="34.0" text="Enter the customer ID:" />
-            <Label layoutX="24.0" layoutY="69.0" text="Enter their first name:" />
+            <Label layoutX="24.0" layoutY="69.0" text="Enter customer first name:" />
             <Label layoutX="25.0" layoutY="108.0" prefHeight="17.0" prefWidth="118.0" text="Enter their last name:" />
             <Label layoutX="23.0" layoutY="236.0" text="Enter their birthdate (dd-mm-yyyy):" />
             <Label layoutX="23.0" layoutY="271.0" text="Enter their phone number:" />
             <Label layoutX="34.0" layoutY="176.0" text="Select Gender:" />
-            <TextField fx:id="customerIdField" layoutX="211.0" layoutY="30.0" />
             <TextField fx:id="lastNameField" layoutX="211.0" layoutY="104.0" />
             <TextField fx:id="dobField" layoutX="211.0" layoutY="232.0" />
             <TextField fx:id="phoneField" layoutX="211.0" layoutY="267.0" />

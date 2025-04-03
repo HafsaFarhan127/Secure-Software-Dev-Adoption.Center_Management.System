@@ -8,9 +8,26 @@ import java.time.format.DateTimeParseException;
 public class InputValidationFunctions {
 
     // 1. Validate userID (only numbers, max 8 digits)
-    public static boolean isValidUserID(String userID) {
-        return userID.matches("\\d{1,8}");
+    public static boolean isValidUserID(Integer number) {
+        if (number == null) {
+            return false; // Reject null input
+        }
+
+        // Convert the integer to a string and check against regex
+        String numStr = Integer.toString(number);
+        return numStr.matches("^\\d{1,8}$"); // 1-8 digits, non-negative
     }
+
+    public static boolean isValidOtherID(Integer number) { //this one is to check for auto-incremented values like petID,customerID
+        if (number == null) {
+            return false; // Reject null input
+        }
+
+        // Convert the integer to a string and check against regex
+        String numStr = Integer.toString(number);
+        return numStr.matches("^\\d{1,11}$"); // 1-11 digits, non-negative
+    }
+
 
     // 2. Validate password (min 8 length, at least 2 numbers, 2 letters, 1 special character (!_))
     public static boolean isValidPassword(String password) {

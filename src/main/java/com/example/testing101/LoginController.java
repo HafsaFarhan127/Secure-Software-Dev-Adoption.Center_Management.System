@@ -61,7 +61,7 @@ public class LoginController {
             String hashedPassword = AddUser.generateHash(password, "SHA-256", salt);
             Connection con = DBUtils.establishConnection();
             String role = "";
-            String query = "SELECT * FROM user WHERE userId =? AND password=? ;";
+            String query = "SELECT * FROM users WHERE userId =? AND password=? ;";
 
             PreparedStatement statement = con.prepareStatement(query);
             statement.setString(1, username); //here we are binding the ? to the variable storing userInput to pass sql query
@@ -113,7 +113,7 @@ public class LoginController {
 
     public static byte[] getSalt(String username) {
         Connection con = DBUtils.establishConnection();
-        String query = "SELECT salt FROM user WHERE userId =?";
+        String query = "SELECT salt FROM users WHERE userId =?";
 
         try {
             PreparedStatement statement = con.prepareStatement(query);

@@ -63,7 +63,12 @@ public class AddUser {
 
     private void registerUser(ActionEvent event) throws IOException {
         Integer userId = Integer.valueOf(userIdField.getText());
-        byte[] salt=createSalt();
+        if (!InputValidationFunctions.isValidUserID(userId)) {
+            errorLabelField.setText("Invalid User ID! Please enter a valid numeric User ID.");
+            errorLabelField.setVisible(true); // Show on error
+            return; // Stop processing if invalid
+        }
+        byte[] salt = createSalt();
         String password = passwordField.getText();
         String role = "";
         String firstName = firstNameField.getText();
@@ -74,6 +79,12 @@ public class AddUser {
 
 
         // 3. Validate each field with if-else checks:
+
+        if (!InputValidationFunctions.isValidUserID(userId)) {
+            errorLabelField.setText("Invalid ID! Must be 6 digits only and not be empty.");
+            errorLabelField.setVisible(true); // Show on error
+            return;  // Stop processing if invalid
+        }
 
         // First Name check
         if (!InputValidationFunctions.isValidFirstName(firstName)) {
@@ -132,6 +143,7 @@ public class AddUser {
         //for role validation
         if (this.role == null) {
             errorLabelField.setText("Please select a role!");
+            errorLabelField.setVisible(true);
             return;
         }
         /*else { this is taken care of at the start maybe
@@ -140,7 +152,7 @@ public class AddUser {
         }*/
 
         Connection con = DBUtils.establishConnection();
-        String query = "INSERT INTO user (userId,firstname,lastname,dob,phone,gender,role,password,salt)  VALUES (?, ?, ?, ?, ?,?,?,?,?);";
+        String query = "INSERT INTO users (userId,firstname,lastname,dob,phone,gender,role,password,salt)  VALUES (?, ?, ?, ?, ?,?,?,?,?);";
         try{
             PreparedStatement statement = con.prepareStatement(query);
             statement.setInt(1, userId); //here we are binding the ? to the variable storing userInput to pass sql query

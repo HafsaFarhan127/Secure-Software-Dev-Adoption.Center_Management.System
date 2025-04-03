@@ -17,13 +17,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class AppointmentEmployee {
+    @FXML private TextField petIDField;
     @FXML private TextField customerIdField;
-    @FXML private TextField lastNameField;
     @FXML private TextField phoneField;
     @FXML
     private TextField apptDateField;
     @FXML private Button registerButton;
-    @FXML private TextField firstNameField;
     @FXML private Button backButton;
     @FXML private TextField apptTimeField;
     @FXML
@@ -31,7 +30,7 @@ public class AppointmentEmployee {
     private boolean flag=false;
     private Stage stage;
     private Scene scene;
-    private String username=SessionManager.getInstance().getUsername(); //will be used for logging
+    private String userID=SessionManager.getInstance().getUsername(); //will be used for logging
 
     public void goBackButton(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EmployeeScreen.fxml"));
@@ -44,26 +43,27 @@ public class AppointmentEmployee {
 
     @FXML private boolean bookApptAction(ActionEvent event) throws IOException {
         Integer customerId = Integer.valueOf(customerIdField.getText());
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
+        Integer PetID = Integer.valueOf(petIDField.getText());
         String apptDate = apptDateField.getText();
         String apptTime = apptTimeField.getText();
         String phone = phoneField.getText();
 
-        if (!InputValidationFunctions.isValidFirstName(firstName)) {
-            errorLabelField.setText("Invalid First Name! Must contain letters only and not be empty.");
-            errorLabelField.setVisible(true); // Show on error
-            return false;  // Stop processing if invalid
-        }
 
-        // Last Name check
-        if (!InputValidationFunctions.isValidLastName(lastName)) {
-            errorLabelField.setText("Invalid Last Name! Must contain letters only and not be empty.");
+        //to validate ID fields
+        if (!InputValidationFunctions.isValidOtherID(customerId)) {
+            errorLabelField.setText("Invalid ID!");
             errorLabelField.setVisible(true); // Show on error
             return false;
         }
 
-        // Date of Birth check & conversion
+        if (!InputValidationFunctions.isValidOtherID(PetID)) {
+            errorLabelField.setText("Invalid ID!");
+            errorLabelField.setVisible(true); // Show on error
+            return false;
+        }
+
+
+        // Date of Appt check & conversion
         String formattedApptDate = InputValidationFunctions.validateAndFormatDOB(apptDate);
         if (formattedApptDate == null) {
             errorLabelField.setText("Invalid Date of Birth! Format must be dd-mm-yyyy (e.g., 15-04-1995).");
@@ -87,15 +87,17 @@ public class AppointmentEmployee {
         }
 
         Connection con = DBUtils.establishConnection();
-        String query = "INSERT INTO appt (customerId,gender,date_of_birth,contactNo,firstname,lastname)  VALUES (?, ?, ?, ?, ?,?);";
+        String query = "INSERT INTO appointments (petID,customerID,userID,apptTime,apptDate,contactNo)  VALUES (?, ?, ?, ?, ?,?);";
         try{
             PreparedStatement statement = con.prepareStatement(query);
-            statement.setInt(1, customerId); //here we are binding the ? to the variable storing userInput to pass sql query
-            statement.setString(2, apptTime); //this is a way to protect against SQLi.
-            statement.setString(3, formattedApptDate);
-            statement.setString(4,phone);  // need to fix this
-            statement.setString(5, firstName);
-            statement.setString(6, lastName);
+             //here we are binding the ? to the variable storing userInput to pass sql query
+            statement.setInt(1, PetID);
+            statement.setInt(2, customerId);
+            statement.setInt(3, Integer.parseInt(userID));
+            statement.setString(4, apptTime); //this is a way to protect against SQLi.
+            statement.setString(5, formattedApptDate);
+            statement.setString(6,phone);  // need to fix this
+
 
             //System.out.println(statement.toString());
             int rs = statement.executeUpdate(); //for insert or updating we use executeUpdate
