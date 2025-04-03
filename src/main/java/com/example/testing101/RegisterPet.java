@@ -78,6 +78,10 @@ public class RegisterPet {
             errorLabel.setText("Invalid pet name");
             return;
         }
+        if (!InputValidationFunctions.isValidLastName(specie)){
+            errorLabel.setText("Invalid pet specie");
+            return;
+        }
         // ensuring the gender is the correct value
         if (!InputValidationFunctions.isValidGender(gender)){
             errorLabel.setText("Gender has to be male or female!");
@@ -98,15 +102,6 @@ public class RegisterPet {
                 return;
             }
         }
-        // If you reach this point, validation passed
-        System.out.println("Validation successful!");
-        System.out.println("Name: " + name);
-        System.out.println("DOB: " + dob);
-        System.out.println("Gender: " + gender);
-        System.out.println("Specie: " + specie);
-        System.out.println("Health Status: " + healthStatus);
-        System.out.println("Adopted: " + adoptionStatus);
-        System.out.println("Available: " + availablity);
         Connection con = DBUtils.establishConnection();
         String sql = "INSERT INTO pet (name, dob, gender, specie, picture, adoptionStatus, availability, healthStatus) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

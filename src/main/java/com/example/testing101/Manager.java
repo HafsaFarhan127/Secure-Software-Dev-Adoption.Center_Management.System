@@ -38,6 +38,16 @@ public class Manager {
         stage.setScene(scene);
         stage.show();
     }
+    public void viewAllPetsAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("allPets.fxml"));
+        Parent root = loader.load();
+        AllPets controller = loader.getController();
+        controller.setUsername(this.username);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     public void logOutAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("loginScreen.fxml"));
         Parent root = loader.load();
@@ -46,7 +56,6 @@ public class Manager {
         stage.setScene(scene);
         stage.show();
     }
-
     public void setUsername(String username){
         this.username = username;
         welcomeLabel.setText("Welcome, "+this.username);

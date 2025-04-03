@@ -65,15 +65,24 @@ public class InputValidationFunctions {
     }
 
     // 3. Validate and convert date of birth (dd-mm-yyyy -> yyyy-MM-dd for SQL)
+    // I had to rework this function because it messed with my update pet its now more flexible with both formats
     public static String validateAndFormatDOB(String dob) {
-        try {
-            DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate date = LocalDate.parse(dob, inputFormat);
-            return date.format(outputFormat);
-        } catch (DateTimeParseException e) {
-            return null; // Invalid date format
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter[] inputFormats = {
+                DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        };
+
+        for (DateTimeFormatter format : inputFormats) {
+            try {
+                LocalDate date = LocalDate.parse(dob, format);
+                return date.format(outputFormat);
+            } catch (DateTimeParseException ignored) {
+                // Try next format
+            }
         }
+
+        return null; // No valid format matched
     }
 
     // 4. Validate gender (only "male" or "female", case insensitive)
@@ -85,7 +94,10 @@ public class InputValidationFunctions {
     public static boolean isValidLastName(String lastName) {
         return lastName != null && lastName.matches("^[a-zA-Z]+$");
     }
-
+    //validate the pet's specie
+    public static boolean isValidSpecie(String specie) {
+        return specie != null && specie.matches("^[a-zA-Z\\s-]+$");
+    }
     // 6. Validate first name (only letters, not null)
     public static boolean isValidFirstName(String firstName) {
         return firstName != null && firstName.matches("^[a-zA-Z]+$");
