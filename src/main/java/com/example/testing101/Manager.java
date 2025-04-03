@@ -17,12 +17,22 @@ public class Manager {
     private Label welcomeLabel;
     @FXML
     private Button logOutButton;
+    private String username;
     private Stage stage;
 
     public void registerPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("addUser.fxml"));
         Parent root = loader.load();
-
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void registerPetPage(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("RegisterPet.fxml"));
+        Parent root = loader.load();
+        RegisterPet controller = loader.getController();
+        controller.saveUsername(this.username);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -38,6 +48,7 @@ public class Manager {
     }
 
     public void setUsername(String username){
-        welcomeLabel.setText("Welcome, "+username);
+        this.username = username;
+        welcomeLabel.setText("Welcome, "+this.username);
     }
 }

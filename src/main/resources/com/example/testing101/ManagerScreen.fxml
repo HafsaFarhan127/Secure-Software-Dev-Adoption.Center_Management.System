@@ -12,7 +12,8 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <Button layoutX="190.0" layoutY="134.0" mnemonicParsing="false" onAction="#registerPage" prefHeight="38.0" prefWidth="219.0" text="Register manager/desk employee" />
+      <Button layoutX="190.0" layoutY="51.0" mnemonicParsing="false" onAction="#registerPage" prefHeight="38.0" prefWidth="219.0" text="Register manager/desk employee" />
       <Button fx:id="logOutButton" layoutX="271.0" layoutY="259.0" mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
+      <Button layoutX="190.0" layoutY="105.0" mnemonicParsing="false" onAction="#registerPetPage" prefHeight="38.0" prefWidth="219.0" text="Register Pet" />
    </children>
 </AnchorPane>

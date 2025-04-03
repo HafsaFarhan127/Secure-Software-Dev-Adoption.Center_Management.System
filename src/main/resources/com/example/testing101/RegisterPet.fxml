@@ -6,25 +6,26 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263F73;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testing101.RegisterPet">
    <children>
-      <Label layoutX="36.0" layoutY="30.0" prefHeight="17.0" prefWidth="111.0" text="Pet's name*" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="67.0" prefHeight="17.0" prefWidth="146.0" text="Approximate date of birth" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="99.0" prefHeight="17.0" prefWidth="111.0" text="Gender*" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="130.0" prefHeight="17.0" prefWidth="111.0" text="Specie*" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="164.0" prefHeight="17.0" prefWidth="111.0" text="Adoption status" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="200.0" prefHeight="17.0" prefWidth="111.0" text="Availability" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="240.0" prefHeight="17.0" prefWidth="111.0" text="Health status" textFill="WHITE" />
-      <Button layoutX="484.0" layoutY="335.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="93.0" text="Register" />
-      <Button layoutX="36.0" layoutY="325.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="93.0" text="Cancel" />
-      <TextField layoutX="315.0" layoutY="26.0" prefHeight="25.0" prefWidth="264.0" />
-      <TextField layoutX="315.0" layoutY="60.0" prefHeight="25.0" prefWidth="264.0" />
-      <TextField layoutX="315.0" layoutY="95.0" prefHeight="25.0" prefWidth="264.0" />
-      <TextField layoutX="315.0" layoutY="126.0" prefHeight="25.0" prefWidth="264.0" />
-      <RadioButton layoutX="315.0" layoutY="173.0" mnemonicParsing="false" text="Adopted" textFill="WHITE" />
-      <RadioButton layoutX="441.0" layoutY="173.0" mnemonicParsing="false" text="Not adopted" textFill="WHITE" />
-      <RadioButton layoutX="315.0" layoutY="209.0" mnemonicParsing="false" text="Available" textFill="WHITE" />
-      <RadioButton layoutX="443.0" layoutY="209.0" mnemonicParsing="false" text="Not available" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="76.0" prefHeight="17.0" prefWidth="111.0" text="Pet's name*" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="109.0" prefHeight="17.0" prefWidth="146.0" text="Approximate date of birth" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="140.0" prefHeight="17.0" prefWidth="111.0" text="Gender*" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="173.0" prefHeight="17.0" prefWidth="111.0" text="Specie*" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="200.0" prefHeight="17.0" prefWidth="111.0" text="Adoption status*" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="226.0" prefHeight="17.0" prefWidth="111.0" text="Availability*" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="261.0" prefHeight="17.0" prefWidth="111.0" text="Health status" textFill="WHITE" />
+      <Button layoutX="484.0" layoutY="335.0" mnemonicParsing="false" onAction="#registerPetAction" prefHeight="37.0" prefWidth="93.0" text="Register" />
+      <Button layoutX="36.0" layoutY="325.0" mnemonicParsing="false" onAction="#CancelOption" prefHeight="37.0" prefWidth="93.0" text="Cancel" />
+      <TextField fx:id="nameField" layoutX="315.0" layoutY="72.0" prefHeight="25.0" prefWidth="264.0" />
+      <TextField fx:id="dobField" layoutX="315.0" layoutY="105.0" prefHeight="25.0" prefWidth="264.0" />
+      <TextField fx:id="genderField" layoutX="315.0" layoutY="136.0" prefHeight="25.0" prefWidth="264.0" />
+      <TextField fx:id="specieField" layoutX="315.0" layoutY="169.0" prefHeight="25.0" prefWidth="264.0" />
+      <RadioButton layoutX="315.0" layoutY="200.0" mnemonicParsing="false" onAction="#adoptedOption" text="Adopted" textFill="WHITE" />
+      <RadioButton layoutX="447.0" layoutY="200.0" mnemonicParsing="false" onAction="#notAdoptedOption" text="Not adopted" textFill="WHITE" />
+      <RadioButton layoutX="314.0" layoutY="226.0" mnemonicParsing="false" onAction="#availableOption" text="Available" textFill="WHITE" />
+      <RadioButton layoutX="447.0" layoutY="226.0" mnemonicParsing="false" onAction="#notAvailableOption" text="Not available" textFill="WHITE" />
+      <TextField fx:id="healthStatusField" layoutX="315.0" layoutY="257.0" prefHeight="25.0" prefWidth="264.0" />
+      <Label fx:id="errorLabel" layoutX="11.0" layoutY="24.0" prefHeight="17.0" prefWidth="579.0" textFill="#ff3636" />
    </children>
 </AnchorPane>
