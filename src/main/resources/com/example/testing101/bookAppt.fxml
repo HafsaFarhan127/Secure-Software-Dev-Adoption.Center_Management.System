@@ -13,6 +13,10 @@
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="378.0" BorderPane.alignment="CENTER">
          <children>
+            <Label fx:id="errorLabelField"
+                   layoutX="24.0" layoutY="5.0"
+                   prefWidth="330.0"  textFill="#ff0000"  style="-fx-font-weight: bold;"
+            visible="false" />  <!-- Initially hidden -->
             <Label layoutX="24.0" layoutY="110.0" text="Enter the customer ID:" />
             <Label layoutX="24.0" layoutY="190.0" prefHeight="34.0" prefWidth="146.0" text="Enter appointment date :" />
             <Label layoutX="23.0" layoutY="254.0" text="Enter their phone number:" />
@@ -21,6 +25,7 @@
             <TextField fx:id="apptDateField" layoutX="212.0" layoutY="196.0" />
             <TextField fx:id="phoneField" layoutX="213.0" layoutY="246.0" />
             <Button fx:id="registerButton" layoutX="297.0" layoutY="355.0" mnemonicParsing="false" onAction="#bookApptAction" style="-fx-background-color: #FFD1DC;" text="Book" textFill="#4b4e4b">
+
                <effect>
                   <DropShadow height="1.0" offsetX="1.0" offsetY="1.0" radius="0.0" width="0.0">
                      <color>

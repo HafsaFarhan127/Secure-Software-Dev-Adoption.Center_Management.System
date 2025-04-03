@@ -1,5 +1,9 @@
 package com.example.testing101;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.regex .*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,14 +22,40 @@ public class InputValidationFunctions {
         return numStr.matches("^\\d{1,8}$"); // 1-8 digits, non-negative
     }
 
-    public static boolean isValidOtherID(Integer number) { //this one is to check for auto-incremented values like petID,customerID
-        if (number == null) {
-            return false; // Reject null input
+    public static boolean isValidOther_petID(Integer number) throws SQLException { //this one is to check for auto-incremented values like petID,customerID
+        Connection con = DBUtils.establishConnection();
+        String query = "SELECT 1 FROM pet WHERE Id = ? ;";
+        try {
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setInt(1, number); // Bind parameter
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            DBUtils.closeConnection(con, statement);
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
+    }
 
-        // Convert the integer to a string and check against regex
-        String numStr = Integer.toString(number);
-        return numStr.matches("^\\d{1,11}$"); // 1-11 digits, non-negative
+    public static boolean isValidOther_customerID(Integer number) throws SQLException { //this one is to check for auto-incremented values like petID,customerID
+        Connection con = DBUtils.establishConnection();
+        try {
+            String query = "SELECT 1 FROM customers WHERE customerID = ? ;";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setInt(1, number); // Bind parameter
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            DBUtils.closeConnection(con, statement);
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

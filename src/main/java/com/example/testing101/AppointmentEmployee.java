@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class AppointmentEmployee {
     @FXML private TextField petIDField;
@@ -31,51 +32,57 @@ public class AppointmentEmployee {
     private Stage stage;
     private Scene scene;
     private String userID=SessionManager.getInstance().getUsername(); //will be used for logging
+    @FXML
+    public void initialize() {
+        errorLabelField.setVisible(false); // Hide by default
+    }
 
     public void goBackButton(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EmployeeScreen.fxml"));
         Parent root = fxmlLoader.load();
+        Employee controller = fxmlLoader.getController();
+        controller.setUsername(SessionManager.getInstance().getUsername());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    @FXML private boolean bookApptAction(ActionEvent event) throws IOException {
-        Integer customerId = Integer.valueOf(customerIdField.getText());
-        Integer PetID = Integer.valueOf(petIDField.getText());
+    @FXML private void bookApptAction(ActionEvent event) throws IOException, SQLException {
+        Integer customerId = customerIdField.getText() == null ? null : Integer.valueOf(customerIdField.getText());
+        Integer PetID = petIDField.getText() == null ? null : Integer.valueOf(petIDField.getText());
         String apptDate = apptDateField.getText();
         String apptTime = apptTimeField.getText();
         String phone = phoneField.getText();
 
 
         //to validate ID fields
-        if (!InputValidationFunctions.isValidOtherID(customerId)) {
+        if (!InputValidationFunctions.isValidOther_customerID(customerId)) {
             errorLabelField.setText("Invalid ID!");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return ;
         }
 
-        if (!InputValidationFunctions.isValidOtherID(PetID)) {
+        if (!InputValidationFunctions.isValidOther_petID(PetID)) {
             errorLabelField.setText("Invalid ID!");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return ;
         }
 
 
         // Date of Appt check & conversion
         String formattedApptDate = InputValidationFunctions.validateAndFormatDOB(apptDate);
         if (formattedApptDate == null) {
-            errorLabelField.setText("Invalid Date of Birth! Format must be dd-mm-yyyy (e.g., 15-04-1995).");
+            errorLabelField.setText("Invalid Date! Format:dd-mm-yyyy .");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return ;
         }
 
         // Time check from 9AM to 5PM
         if (!InputValidationFunctions.isTimeValid(apptTime)) {
-            errorLabelField.setText("Invalid Time! Format can be 24-HR or 12-HR btw (9AM-5PM only) (e.g., 12:00 or 02:00).");
+            errorLabelField.setText("Invalid! 9AM-5PM only (e.g., 14:00 or 02:00).");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return ;
         }
 
 
@@ -83,11 +90,11 @@ public class AppointmentEmployee {
         if (!InputValidationFunctions.isValidQatariPhoneNumber(phone)) {
             errorLabelField.setText("Invalid Phone Number! Must be a valid Qatari phone number with prefixes(+974)");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return ;
         }
 
         Connection con = DBUtils.establishConnection();
-        String query = "INSERT INTO appointments (petID,customerID,userID,apptTime,apptDate,contactNo)  VALUES (?, ?, ?, ?, ?,?);";
+        String query = "INSERT INTO appointments (petId,customerID,userId,apptTime,apptDate,contactNo)  VALUES (?, ?, ?, ?, ?,?);";
         try{
             PreparedStatement statement = con.prepareStatement(query);
              //here we are binding the ? to the variable storing userInput to pass sql query
@@ -111,13 +118,14 @@ public class AppointmentEmployee {
                 showAlert("Failure", "Failed to register user",event);
             }
             DBUtils.closeConnection(con, statement);
-            return true;
+
         }catch(Exception e) {
-            e.printStackTrace();
+           e.printStackTrace();
             showAlert("Failure", "Failed to register user",event);
             errorLabelField.setVisible(false);
-            return false;
+            return ;
         }
+
 
 
     }

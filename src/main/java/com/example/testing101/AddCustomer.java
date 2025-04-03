@@ -56,6 +56,8 @@ public class AddCustomer {
     public void goBackButton(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EmployeeScreen.fxml"));
         Parent root = fxmlLoader.load();
+        Employee controller = fxmlLoader.getController();
+        controller.setUsername(SessionManager.getInstance().getUsername());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
