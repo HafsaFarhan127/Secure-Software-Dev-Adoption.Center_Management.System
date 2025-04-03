@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 public class AddUser {
@@ -37,6 +38,7 @@ public class AddUser {
     private Button registerButton;
     @FXML
     private Label errorLabelField;
+    private boolean flag=false;
     private Stage stage;
     private Scene scene;
 
@@ -55,11 +57,11 @@ public class AddUser {
     public void setRoleToDE(ActionEvent event){
         this.role = "desk employee";
     }
-    public void registerUserAction(ActionEvent event){
-        registerUser();
+    public void registerUserAction(ActionEvent event) throws IOException {
+        registerUser(event);
     }
 
-    private Boolean registerUser(){
+    private void registerUser(ActionEvent event) throws IOException {
         Integer userId = Integer.valueOf(userIdField.getText());
         byte[] salt=createSalt();
         String password = passwordField.getText();
@@ -70,20 +72,21 @@ public class AddUser {
         String phone = phoneField.getText();
         String gender = genderField.getText();
 
+
         // 3. Validate each field with if-else checks:
 
         // First Name check
         if (!InputValidationFunctions.isValidFirstName(firstName)) {
             errorLabelField.setText("Invalid First Name! Must contain letters only and not be empty.");
             errorLabelField.setVisible(true); // Show on error
-            return false;  // Stop processing if invalid
+            return;  // Stop processing if invalid
         }
 
         // Last Name check
         if (!InputValidationFunctions.isValidLastName(lastName)) {
             errorLabelField.setText("Invalid Last Name! Must contain letters only and not be empty.");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return;
         }
 
         // Date of Birth check & conversion
@@ -91,20 +94,20 @@ public class AddUser {
         if (formattedDob == null) {
             errorLabelField.setText("Invalid Date of Birth! Format must be dd-mm-yyyy (e.g., 15-04-1995).");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return;
         }
 
         // Phone check (Qatari number)
         if (!InputValidationFunctions.isValidQatariPhoneNumber(phone)) {
             errorLabelField.setText("Invalid Phone Number! Must be a valid Qatari phone number with prefixes(+974 or 974)");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return;
         }
 
         if (!InputValidationFunctions.isValidPassword(password)) {
             errorLabelField.setText("Invalid password! Must be a valid password of min 8 length, at least 2 numbers, 2 letters, 1 special characters(!_)");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return;
         } else{
             try {
                 password = generateHash(password,hashAlgo,salt);
@@ -117,7 +120,7 @@ public class AddUser {
         if (!InputValidationFunctions.isValidGender(gender)) {
             errorLabelField.setText("Invalid Gender! Must be 'male' or 'female'.");
             errorLabelField.setVisible(true); // Show on error
-            return false;
+            return;
         }
         if (gender.equalsIgnoreCase("male")){ //because the data base only accepts characeters
             gender = "m";
@@ -129,7 +132,7 @@ public class AddUser {
         //for role validation
         if (this.role == null) {
             errorLabelField.setText("Please select a role!");
-            return false;
+            return;
         }
         /*else { this is taken care of at the start maybe
             RadioButton selectedRole = (RadioButton) roleToggleGroup.getSelectedToggle();
@@ -154,26 +157,39 @@ public class AddUser {
             int rs = statement.executeUpdate(); //for insert or updating we use executeUpdate
 
             if (rs==1) {
+                flag=true;
                 //here we do 1 cuz we use execute update and it returns an int value, also we use this or updating the db.
-                showAlert("Success", "You have been added successfully!");
+                showAlert("Success", "You have been added successfully!",event);
             } else {
-                showAlert("Failure", "Failed to register user");
+                showAlert("Failure", "Failed to register user",event);
             }
             DBUtils.closeConnection(con, statement);
-            return true;
+        }catch(SQLException e) {
+            e.printStackTrace();
+            showAlert("Failure", "System be glitching",event);
+            errorLabelField.setVisible(false);
         }catch(Exception e) {
             e.printStackTrace();
-            showAlert("Failure", "Failed to register user");
+            showAlert("Failure", "Screen be glitching",event);
             errorLabelField.setVisible(false);
-            return false;
         }
     }
-    private void showAlert(String title, String content) {
+    private void showAlert(String title, String content,ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+        if (flag) { // Ensure 'flag' is set to true on successful registration
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ManagerScreen.fxml")); // Remove "name:"
+            Parent root = fxmlLoader.load();
+            Manager controller = fxmlLoader.getController();
+            controller.setUsername(SessionManager.getInstance().getUsername()); //using the global method i made to universally use the username
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
     public static   String generateHash(String password, String algorithm, byte[] salt) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance(algorithm);
