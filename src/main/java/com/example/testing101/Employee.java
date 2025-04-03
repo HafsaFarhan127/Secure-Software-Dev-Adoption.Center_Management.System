@@ -43,8 +43,13 @@ public class Employee {
         stage.setScene(scene);
         stage.show();
     }
-
-    public void viewPetsButton(ActionEvent actionEvent) {
+    public void viewPetsButton(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("allPetsDE.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void registerCustomer(ActionEvent actionEvent) throws IOException{

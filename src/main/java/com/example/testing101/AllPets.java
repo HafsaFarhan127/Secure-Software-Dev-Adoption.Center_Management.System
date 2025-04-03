@@ -34,6 +34,7 @@ public class AllPets implements Initializable {
     @FXML private TextField healthStatusField;
     @FXML private CheckBox availabilityBox;
     @FXML private CheckBox adoptedBox;
+    private String username;
     @FXML
     private void updatePetAction(ActionEvent event) {
         if (selectedPetId == -1) {
@@ -93,7 +94,7 @@ public class AllPets implements Initializable {
             e.printStackTrace();
         }
     }
-    private String username;
+
     private int selectedPetId = -1; // stores the ID of the selected pet
     private final ObservableList<PetInfo> petList = FXCollections.observableArrayList();
 
