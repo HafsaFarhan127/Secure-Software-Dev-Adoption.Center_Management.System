@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -59,7 +60,7 @@ public class RegisterPet {
         this.availablity = false;
     }
 
-    public void registerPetAction(ActionEvent event) throws SQLException {
+    public void registerPetAction(ActionEvent event) throws SQLException, IOException {
         String name = nameField.getText().trim();
         String dob = dobField.getText().trim();  // Optional
         String gender = genderField.getText().trim();
@@ -106,10 +107,10 @@ public class RegisterPet {
         String sql = "INSERT INTO pet (name, dob, gender, specie, picture, adoptionStatus, availability, healthStatus) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = con.prepareStatement(sql);
-        String adoption = "adopted"; //assuming its adopted
+        Boolean adoption = true; //assuming its adopted
         Boolean available = true; // assuming its available
         if (!adoptionStatus){
-            adoption = "not adopted";
+            adoption = false;
         }
         if (!availablity){
             available = false;
@@ -119,11 +120,26 @@ public class RegisterPet {
         stmt.setString(3, gender);                              // from genderField
         stmt.setString(4, specie);                              // from specieField
         stmt.setString(5, null);                                // picture is not in the form yet
-        stmt.setString(6, adoption);
+        stmt.setBoolean(6, adoption);
         stmt.setBoolean(7, available);
         stmt.setString(8, healthStatus.isEmpty() ? null : healthStatus); // from healthStatusField
 
         stmt.executeUpdate();
-        return;
+        showAlert("Pet added","Pet has been successfully added to the database",event);
+    }
+    private void showAlert(String title, String content,ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("ManagerScreen.fxml"));
+        Parent root = loader.load();
+        Manager controller = loader.getController();
+        controller.setUsername(this.username);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

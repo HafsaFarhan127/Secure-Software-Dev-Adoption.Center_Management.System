@@ -143,7 +143,7 @@ public class AllPets implements Initializable {
                 String gender = rs.getString("gender");
                 String specie = rs.getString("specie");
                 String healthStatus = rs.getString("healthStatus");
-                String adoptionStatus = rs.getString("adoptionStatus");
+                Boolean adoptionStatus = rs.getBoolean("adoptionStatus");
                 Boolean availability = rs.getBoolean("availability");
 
                 Date dobDate = rs.getDate("dob");
@@ -171,6 +171,6 @@ public class AllPets implements Initializable {
         specieField.setText(pet.getSpecie());
         healthStatusField.setText(pet.getHealthStatus());
         availabilityBox.setSelected(pet.getAvailableStatus());
-        adoptedBox.setSelected("Adopted".equalsIgnoreCase(pet.getAdoptedStatus()));
+        adoptedBox.setSelected(pet.getAdoptedStatus());
     }
 }

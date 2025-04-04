@@ -54,7 +54,7 @@ public class AllPetsDE implements Initializable {
     }
 
     private void loadAvailablePets() {
-        String query = "SELECT * FROM pets WHERE adoptionStatus = 'Not adopted' AND availability = 'Available'";
+        String query = "SELECT * FROM pet WHERE adoptionStatus = 0 AND availability = 1";
 
         try (Connection conn = DBUtils.establishConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
@@ -75,7 +75,7 @@ public class AllPetsDE implements Initializable {
                 String fullGender = gender != null && gender.equalsIgnoreCase("m") ? "Male" : "Female";
 
                 //changing here the default to be false for availability
-                PetInfo pet = new PetInfo(id, name, fullGender, specie, age, null, null, false, dobDate != null ? dobDate.toString() : "");
+                PetInfo pet = new PetInfo(id, name, fullGender, specie, age, null, false, false, dobDate != null ? dobDate.toString() : "");
                 petList.add(pet);
             }
 

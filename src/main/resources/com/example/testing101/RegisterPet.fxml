@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263F73;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testing101.RegisterPet">
    <children>
       <Label layoutX="36.0" layoutY="76.0" prefHeight="17.0" prefWidth="111.0" text="Pet's name*" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="109.0" prefHeight="17.0" prefWidth="146.0" text="Approximate date of birth" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="109.0" prefHeight="17.0" prefWidth="237.0" text="Approximate date of birth(mm-dd-yyyy)" textFill="WHITE" />
       <Label layoutX="36.0" layoutY="140.0" prefHeight="17.0" prefWidth="111.0" text="Gender*" textFill="WHITE" />
       <Label layoutX="36.0" layoutY="173.0" prefHeight="17.0" prefWidth="111.0" text="Specie*" textFill="WHITE" />
       <Label layoutX="36.0" layoutY="200.0" prefHeight="17.0" prefWidth="111.0" text="Adoption booked*" textFill="WHITE" />

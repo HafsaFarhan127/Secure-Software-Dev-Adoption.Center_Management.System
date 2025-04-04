@@ -53,9 +53,11 @@ public class AddUser {
     }
     public void setRoleToManager(ActionEvent event){
         this.role = "manager";
+        System.out.println("THE CURRENT ROLE SHOULD BE MANAGER AND IS: "+role);
     }
     public void setRoleToDE(ActionEvent event){
         this.role = "desk employee";
+        System.out.println("THE CURRENT ROLE SHOULD DE AND IS: "+role);
     }
     public void registerUserAction(ActionEvent event) throws IOException {
         registerUser(event);
@@ -153,6 +155,8 @@ public class AddUser {
 
         Connection con = DBUtils.establishConnection();
         String query = "INSERT INTO users (userId,firstname,lastname,dob,phone,gender,role,password,salt)  VALUES (?, ?, ?, ?, ?,?,?,?,?);";
+        System.out.println("THE CURRENT ROLE IS"+this.role); // the role was left as an empty string so i am sending the attribute of the class instead of the variable
+        System.out.println("THE CURRENT ROLE IS WITH OUT THIS"+role);
         try{
             PreparedStatement statement = con.prepareStatement(query);
             statement.setInt(1, userId); //here we are binding the ? to the variable storing userInput to pass sql query
@@ -161,7 +165,7 @@ public class AddUser {
             statement.setString(4,formattedDob);  // need to fix this
             statement.setString(5, phone);
             statement.setString(6, gender);
-            statement.setString(7, role);
+            statement.setString(7, this.role);
             statement.setString(8, password);
             statement.setString(9, Arrays.toString(salt));  //typecasted it to strings because byte cant be put here as db has varchar value for salt
 
