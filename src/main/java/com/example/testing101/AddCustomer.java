@@ -71,6 +71,11 @@ public class AddCustomer {
         String phone = phoneField.getText();
 
         // 3. Validate each field with if-else checks:
+        if(firstName.isEmpty() || lastName.isEmpty() || dob.isEmpty() || phone.isEmpty() || gender.isEmpty() ) {
+            errorLabelField.setText("Fields can not be empty!");
+            errorLabelField.setVisible(true); // Show on error
+            return false;
+        }
 
         // First Name check
         if (!InputValidationFunctions.isValidFirstName(firstName)) {

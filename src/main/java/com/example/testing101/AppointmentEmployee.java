@@ -49,13 +49,18 @@ public class AppointmentEmployee {
     }
 
     @FXML private void bookApptAction(ActionEvent event) throws IOException, SQLException {
-        Integer customerId = customerIdField.getText() == null ? null : Integer.valueOf(customerIdField.getText());
-        Integer PetID = petIDField.getText() == null ? null : Integer.valueOf(petIDField.getText());
+        Integer customerId = customerIdField.getText() != null ? Integer.valueOf(customerIdField.getText()):null;
+        Integer PetID = petIDField.getText() == " " ? null : Integer.valueOf(petIDField.getText());
         String apptDate = apptDateField.getText();
         String apptTime = apptTimeField.getText();
         String phone = phoneField.getText();
 
-
+        //to validate when all fields are empty
+        if (customerIdField.getText().isEmpty() || petIDField.getText().isEmpty() || apptDateField.getText().isEmpty() || apptTimeField.getText().isEmpty() || phoneField.getText().isEmpty()) {
+            errorLabelField.setText("Fields cant be empty!");
+            errorLabelField.setVisible(true); // Show on error
+            return ;
+        }
         //to validate ID fields
         if (!InputValidationFunctions.isValidOther_customerID(customerId)) {
             errorLabelField.setText("Invalid ID!");
@@ -71,7 +76,7 @@ public class AppointmentEmployee {
 
 
         // Date of Appt check & conversion
-        String formattedApptDate = InputValidationFunctions.validateAndFormatDOB(apptDate);
+        String formattedApptDate = InputValidationFunctions.isValidApptDate(apptDate);
         if (formattedApptDate == null) {
             errorLabelField.setText("Invalid Date! Format:dd-mm-yyyy .");
             errorLabelField.setVisible(true); // Show on error

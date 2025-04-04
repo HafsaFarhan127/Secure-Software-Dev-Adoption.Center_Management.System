@@ -85,6 +85,29 @@ public class InputValidationFunctions {
         return null; // No valid format matched
     }
 
+    public static String isValidApptDate(String dob) {
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter[] inputFormats = {
+                DateTimeFormatter.ofPattern("dd-MM-yyyy"), // Corrected "MN" → "MM"
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")  // Corrected "MN" → "MM"
+        };
+
+        for (DateTimeFormatter format : inputFormats) {
+            try {
+                LocalDate parsedDate = LocalDate.parse(dob, format);
+                // Check if the parsed date is in the future
+                if (parsedDate.isAfter(LocalDate.now())) {
+                    return parsedDate.format(outputFormat); // Return formatted date if valid and future
+                } else {
+                    return null; // Date is valid but not in the future
+                }
+            } catch (DateTimeParseException ignored) {
+                // Try next format
+            }
+        }
+        return null; // No valid format found
+    }
+
     // 4. Validate gender (only "male" or "female", case insensitive)
     public static boolean isValidGender(String gender) {
         return gender.equalsIgnoreCase("male") || gender.equalsIgnoreCase("female");
