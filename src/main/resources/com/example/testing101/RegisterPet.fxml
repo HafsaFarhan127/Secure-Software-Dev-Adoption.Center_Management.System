@@ -21,10 +21,10 @@
       <TextField fx:id="dobField" layoutX="315.0" layoutY="105.0" prefHeight="25.0" prefWidth="264.0" />
       <TextField fx:id="genderField" layoutX="315.0" layoutY="136.0" prefHeight="25.0" prefWidth="264.0" />
       <TextField fx:id="specieField" layoutX="315.0" layoutY="169.0" prefHeight="25.0" prefWidth="264.0" />
-      <RadioButton layoutX="315.0" layoutY="200.0" mnemonicParsing="false" onAction="#adoptedOption" text="Adopted" textFill="WHITE" />
-      <RadioButton layoutX="447.0" layoutY="200.0" mnemonicParsing="false" onAction="#notAdoptedOption" text="Not adopted" textFill="WHITE" />
-      <RadioButton layoutX="314.0" layoutY="226.0" mnemonicParsing="false" onAction="#availableOption" text="Available" textFill="WHITE" />
-      <RadioButton layoutX="447.0" layoutY="226.0" mnemonicParsing="false" onAction="#notAvailableOption" text="Not available" textFill="WHITE" />
+      <RadioButton fx:id="adoptedButton" layoutX="315.0" layoutY="200.0" mnemonicParsing="false" onAction="#adoptedOption" text="Adopted" textFill="WHITE" />
+      <RadioButton fx:id="notAdoptedButton" layoutX="447.0" layoutY="200.0" mnemonicParsing="false" onAction="#notAdoptedOption" text="Not adopted" textFill="WHITE" />
+      <RadioButton fx:id="avaialbleButton" layoutX="314.0" layoutY="226.0" mnemonicParsing="false" onAction="#availableOption" text="Available" textFill="WHITE" />
+      <RadioButton fx:id="notAvaialbleButton" layoutX="447.0" layoutY="226.0" mnemonicParsing="false" onAction="#notAvailableOption" text="Not available" textFill="WHITE" />
       <TextField fx:id="healthStatusField" layoutX="315.0" layoutY="257.0" prefHeight="25.0" prefWidth="264.0" />
       <Label fx:id="errorLabel" layoutX="11.0" layoutY="24.0" prefHeight="17.0" prefWidth="579.0" textFill="#ff3636" />
    </children>

@@ -30,7 +30,7 @@
       <CheckBox fx:id="adoptedBox" layoutX="462.0" layoutY="260.0" mnemonicParsing="false" text="Adopted" textFill="WHITE" />
       <CheckBox fx:id="availabilityBox" layoutX="382.0" layoutY="260.0" mnemonicParsing="false" text="Available" textFill="WHITE" />
       <Button layoutX="382.0" layoutY="286.0" mnemonicParsing="false" onAction="#updatePetAction" prefHeight="25.0" prefWidth="70.0" text="Update" />
-      <Button layoutX="461.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="History" />
+      <Button layoutX="461.0" layoutY="286.0" mnemonicParsing="false" onAction="#goHistoryButton" prefHeight="25.0" prefWidth="70.0" text="History" />
       <Label fx:id="errorLabel" layoutX="354.0" layoutY="43.0" prefHeight="17.0" prefWidth="235.0" textFill="#ff4d4d" />
    </children>
 </AnchorPane>

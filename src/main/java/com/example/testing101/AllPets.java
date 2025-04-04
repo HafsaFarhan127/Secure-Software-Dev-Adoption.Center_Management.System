@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -35,6 +36,7 @@ public class AllPets implements Initializable {
     @FXML private CheckBox availabilityBox;
     @FXML private CheckBox adoptedBox;
     private String username;
+    private int petId = 0; // this will be carried over to the next page (history page)
     @FXML
     private void updatePetAction(ActionEvent event) {
         if (selectedPetId == -1) {
@@ -46,8 +48,8 @@ public class AllPets implements Initializable {
         String dob = (dobField.getText() != null) ? dobField.getText().trim() : "";
         String specie = (specieField.getText() != null) ? specieField.getText().trim() : "";
         String healthStatus = (healthStatusField.getText() != null) ? healthStatusField.getText().trim() : "";
-        Boolean adoptionStatus = adoptedBox.isSelected() ? true : false;
-        Boolean availability = availabilityBox.isSelected() ? true :false;
+        boolean adoptionStatus = adoptedBox.isSelected();
+        boolean availability = availabilityBox.isSelected();
         if (!InputValidationFunctions.isValidLastName(name)){
             errorLabel.setText("Invalid pet name");
             return;
@@ -112,7 +114,22 @@ public class AllPets implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    public void goHistoryButton(ActionEvent event) throws IOException {
+        if (petId > 0) {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("petHistory.fxml"));
+            Parent root = loader.load();
+            PetMedicineController controller = loader.getController();
+            controller.setPetId(petId);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        else{
+            errorLabel.setText("You need to select a pet first!");
+            return;
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -165,6 +182,7 @@ public class AllPets implements Initializable {
     }
 
     private void populateForm(PetInfo pet) {
+        this.petId = pet.getId();
         selectedPetId = pet.getId(); // Save pet ID
         nameField.setText(pet.getName());
         dobField.setText(pet.getDob());

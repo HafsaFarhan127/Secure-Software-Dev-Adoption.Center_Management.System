@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,9 +38,9 @@ public class ManagerAppt implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        petCol.setCellValueFactory(data -> data.getValue().petNameProperty());
-        customerCol.setCellValueFactory(data -> data.getValue().customerNameProperty());
-        dateCol.setCellValueFactory(data -> data.getValue().apptDateProperty());
+        petCol.setCellValueFactory(new PropertyValueFactory<>("petName"));
+        customerCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("apptDate"));
 
         loadAppointments();
         appointmentTable.setItems(appointments);

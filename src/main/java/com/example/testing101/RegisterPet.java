@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -29,7 +30,14 @@ public class RegisterPet {
     private TextField specieField;
     @FXML
     private TextField healthStatusField;
-
+    @FXML
+    private RadioButton adoptedButton;
+    @FXML
+    private RadioButton notAdoptedButton;
+    @FXML
+    private RadioButton avaialbleButton;
+    @FXML
+    private RadioButton notAvaialbleButton;
     private String username;
     private Boolean adoptionStatus;
     private Boolean availablity;
@@ -49,15 +57,19 @@ public class RegisterPet {
     }
     public void adoptedOption(ActionEvent event){
         this.adoptionStatus = true;
+        notAdoptedButton.setSelected(false);
     }
     public void notAdoptedOption(ActionEvent event){
         this.adoptionStatus = false;
+        adoptedButton.setSelected(false);
     }
     public void availableOption(ActionEvent event){
         this.availablity = true;
+        notAvaialbleButton.setSelected(false);
     }
     public void notAvailableOption(ActionEvent event){
         this.availablity = false;
+        avaialbleButton.setSelected(false);
     }
 
     public void registerPetAction(ActionEvent event) throws SQLException, IOException {
