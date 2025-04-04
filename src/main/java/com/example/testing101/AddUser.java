@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 
 public class AddUser {
+    @FXML private TextField petNameField;
     @FXML
     private TextField userIdField;
     @FXML
@@ -78,14 +79,20 @@ public class AddUser {
         byte[] salt = createSalt();
         String password = passwordField.getText();
         String role = "";
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
+        String firstName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
         String dob = dobField.getText();
         String phone = phoneField.getText();
         String gender = genderField.getText();
+        String firstPet = petNameField.getText().trim();
 
 
         // 3. Validate each field with if-else checks:
+        if(firstName.isEmpty() || lastName.isEmpty() || dob.isEmpty() || phone.isEmpty() || gender.isEmpty() || password.isEmpty() || firstPet.isEmpty() ) {
+            errorLabelField.setText("No empty fields!");
+            errorLabelField.setVisible(true); // Show on error
+            return;  // Stop processing if invalid
+        }
 
         if (!InputValidationFunctions.isValidUserID(userId)) {
             errorLabelField.setText("Invalid ID! Must be 6 digits only and not be empty.");
@@ -159,7 +166,7 @@ public class AddUser {
         }*/
 
         Connection con = DBUtils.establishConnection();
-        String query = "INSERT INTO users (userId,firstname,lastname,dob,phone,gender,role,password,salt)  VALUES (?, ?, ?, ?, ?,?,?,?,?);";
+        String query = "INSERT INTO users (userId,firstname,lastname,dob,phone,gender,role,password,salt,firstPet)  VALUES (?, ?, ?, ?, ?,?,?,?,?,?);";
         System.out.println("THE CURRENT ROLE IS"+this.role); // the role was left as an empty string so i am sending the attribute of the class instead of the variable
         System.out.println("THE CURRENT ROLE IS WITH OUT THIS"+role);
         try{
@@ -173,6 +180,7 @@ public class AddUser {
             statement.setString(7, this.role);
             statement.setString(8, password);
             statement.setString(9, Arrays.toString(salt));  //typecasted it to strings because byte cant be put here as db has varchar value for salt
+            statement.setString(10,firstPet );
 
             //System.out.println(statement.toString());
             int rs = statement.executeUpdate(); //for insert or updating we use executeUpdate

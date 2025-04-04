@@ -28,30 +28,32 @@
          </children>
       </AnchorPane>
    </left>
-   <right>
+   <center>
       <AnchorPane prefHeight="400.0" prefWidth="378.0" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="24.0" layoutY="34.0" text="Enter the username ID:" />
             <Label layoutX="24.0" layoutY="69.0" text="Enter your first name:" />
             <Label layoutX="25.0" layoutY="108.0" prefHeight="17.0" prefWidth="118.0" text="Enter your last name:" />
             <Label layoutX="23.0" layoutY="134.0" text="Enter your password:" />
-            <Label layoutX="23.0" layoutY="236.0" text="Enter your birthdate (dd-mm-yyyy):" />
-            <Label layoutX="23.0" layoutY="271.0" text="Enter your phone number:" />
-            <Label layoutX="23.0" layoutY="305.0" text="Enter your gender:" />
-            <Label layoutX="26.0" layoutY="176.0" text="Select the user's role: " />
+            <Label layoutX="22.0" layoutY="201.0" text="Enter your birthdate (dd-mm-yyyy):" />
+            <Label layoutX="23.0" layoutY="236.0" text="Enter your phone number:" />
+            <Label layoutX="24.0" layoutY="270.0" text="Enter your gender:" />
+            <Label layoutX="26.0" layoutY="168.0" text="Select the user's role: " />
             <TextField fx:id="userIdField" layoutX="211.0" layoutY="30.0" />
             <TextField fx:id="lastNameField" layoutX="211.0" layoutY="104.0" />
-            <TextField fx:id="dobField" layoutX="211.0" layoutY="232.0" />
-            <TextField fx:id="phoneField" layoutX="211.0" layoutY="267.0" />
-            <TextField fx:id="genderField" layoutX="211.0" layoutY="301.0" />
-            <RadioButton layoutX="213.0" layoutY="176.0" mnemonicParsing="false" onAction="#setRoleToManager" text="Manager" />
-            <RadioButton layoutX="213.0" layoutY="208.0" mnemonicParsing="false" onAction="#setRoleToDE" text="Desk employee" />
+            <TextField fx:id="dobField" layoutX="211.0" layoutY="197.0" />
+            <TextField fx:id="phoneField" layoutX="211.0" layoutY="232.0" />
+            <TextField fx:id="genderField" layoutX="211.0" layoutY="266.0" />
+            <RadioButton layoutX="276.0" layoutY="173.0" mnemonicParsing="false" onAction="#setRoleToManager" text="Manager" />
+            <RadioButton layoutX="160.0" layoutY="173.0" mnemonicParsing="false" onAction="#setRoleToDE" text="Desk employee" />
             <Button fx:id="registerButton" layoutX="297.0" layoutY="355.0" mnemonicParsing="false" onAction="#registerUserAction" style="-fx-background-color: #263F73;" text="Register" textFill="WHITE" />
-            <Label fx:id="errorLabelField" layoutX="26.0" layoutY="5.0" prefHeight="17.0" prefWidth="333.0" textFill="#f40202" />
+            <Label fx:id="errorLabelField" layoutX="26.0" layoutY="6.0" prefHeight="17.0" prefWidth="333.0" textFill="#f40202" />
             <PasswordField fx:id="passwordField" layoutX="211.0" layoutY="139.0" />
             <TextField fx:id="firstNameField" layoutX="211.0" layoutY="65.0" />
             <Button layoutX="236.0" layoutY="355.0" mnemonicParsing="false" onAction="#goBackButton" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #263F73;" text="Back" textFill="WHITE" />
+            <Label layoutX="24.0" layoutY="301.0" prefHeight="26.0" prefWidth="157.0" text="Enter your first pet's name:" />
+            <TextField fx:id="petNameField" layoutX="210.0" layoutY="305.0" />
          </children>
       </AnchorPane>
-   </right>
+   </center>
 </BorderPane>
