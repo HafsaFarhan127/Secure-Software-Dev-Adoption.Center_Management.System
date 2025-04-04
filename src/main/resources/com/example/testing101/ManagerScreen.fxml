@@ -14,7 +14,8 @@
       </Label>
       <Button layoutX="190.0" layoutY="98.0" mnemonicParsing="false" onAction="#registerPage" prefHeight="38.0" prefWidth="219.0" text="Register manager/desk employee" />
       <Button fx:id="logOutButton" layoutX="271.0" layoutY="334.0" mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
-      <Button layoutX="190.0" layoutY="155.0" mnemonicParsing="false" onAction="#registerPetPage" prefHeight="38.0" prefWidth="219.0" text="Register pet" />
-      <Button layoutX="190.0" layoutY="208.0" mnemonicParsing="false" onAction="#viewAllPetsAction" prefHeight="38.0" prefWidth="219.0" text="View all pets" />
+      <Button layoutX="190.0" layoutY="146.0" mnemonicParsing="false" onAction="#registerPetPage" prefHeight="38.0" prefWidth="219.0" text="Register pet" />
+      <Button layoutX="190.0" layoutY="193.0" mnemonicParsing="false" onAction="#viewAllPetsAction" prefHeight="38.0" prefWidth="219.0" text="View all pets" />
+      <Button layoutX="190.0" layoutY="240.0" mnemonicParsing="false" onAction="#viewAppt" prefHeight="38.0" prefWidth="219.0" text="View appointments" />
    </children>
 </AnchorPane>

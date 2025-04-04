@@ -24,7 +24,7 @@ public class InputValidationFunctions {
 
     public static boolean isValidOther_petID(Integer number) throws SQLException { //this one is to check for auto-incremented values like petID,customerID
         Connection con = DBUtils.establishConnection();
-        String query = "SELECT 1 FROM pets WHERE Id = ? ;";
+        String query = "SELECT 1 FROM pet WHERE Id = ? ;";
         try {
             PreparedStatement statement = con.prepareStatement(query);
             statement.setInt(1, number); // Bind parameter

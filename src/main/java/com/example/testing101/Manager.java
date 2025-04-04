@@ -28,6 +28,16 @@ public class Manager {
         stage.setScene(scene);
         stage.show();
     }
+    public void viewAppt(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("apptConfirm.fxml"));
+        Parent root = loader.load();
+        ManagerAppt controller = loader.getController();
+        controller.setUsername(this.username);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     public void registerPetPage(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("RegisterPet.fxml"));
         Parent root = loader.load();
