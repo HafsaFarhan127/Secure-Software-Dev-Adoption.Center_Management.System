@@ -17,7 +17,7 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <Button fx:id="logOutButton" layoutX="502.0" layoutY="32.0" mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
+      <Button fx:id="logOutButton" layoutX="503.0" layoutY="268.0" mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="83.0" prefHeight="100.0" prefWidth="559.0" spacing="60.0" style="-fx-background-color: #FFD1DC;">
          <children>
             <Button fx:id="bookAptButton" mnemonicParsing="false" onAction="#bookApt" text="Book Appointment" textAlignment="CENTER">

@@ -9,10 +9,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.awt.desktop.UserSessionListener;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class Employee {
     //from here is the dynami stuff
     @FXML
     public void initialize() {
+        setUsername(SessionManager.getInstance().getUsername());
         loadAdoptionRequests(); // Load data when screen opens
     }
 
@@ -41,7 +43,7 @@ public class Employee {
 
         try {
 
-            String query = "SELECT * FROM adoptionhistory WHERE booked = ?";
+            String query = "SELECT * FROM adoptionhistory WHERE booked = ? and Adopted is null;";  //so it doesnt display the accepted requests too
             PreparedStatement statement = con.prepareStatement(query);
             statement.setBoolean(1, true); // Bind parameter
             ResultSet rs = statement.executeQuery();
@@ -92,6 +94,7 @@ public class Employee {
         approveBtn.setOnAction(e -> {
             try {
                 handleApproval(request, true);
+                e.consume();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -103,6 +106,7 @@ public class Employee {
         rejectBtn.setOnAction(e -> {
             try {
                 handleApproval(request, false);
+                e.consume();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -116,17 +120,19 @@ public class Employee {
         Connection con =  DBUtils.establishConnection();
         //if Approved i run this query1 if not then i set adoptionStatus to false availability to yes
         String query1 = "UPDATE pet SET adoptionStatus = ? ,availability=? WHERE Id = ?;";
-        String query2="UPDATE  adoptionhistory SET Adopted=? , booked=? WHERE pet_Id=? , userId=? , customerID=? ;";
+        String query2="UPDATE  adoptionhistory SET Adopted= ? , booked= ? WHERE pet_Id=? AND userId=? AND customerID=? ;";
 
 
         try {
             PreparedStatement statement1 = con.prepareStatement(query1);
             PreparedStatement statement2 = con.prepareStatement(query2);
             if (isApproved) {
+                LocalDate currentDate = LocalDate.now();
                 statement1.setBoolean(1, true);
                 statement1.setBoolean(2, false);
                 //these are for query2
-                statement2.setDate(1,request.getAdopted());
+                statement2.setDate(1, Date.valueOf(currentDate));
+                System.out.println(request.getAdopted());
                 statement2.setBoolean(2, true);
                 statement2.setInt(3, request.getPetId());
                 statement2.setInt(4, request.getUserId());
@@ -135,7 +141,7 @@ public class Employee {
             }else{  statement1.setBoolean(1, false);
                 statement1.setBoolean(2, true);
                 //these are for query2
-                statement2.setDate(1,null);
+                statement2.setNull(1, Types.DATE); //makes it null
                 statement2.setBoolean(2, false);
                 statement2.setInt(3, request.getPetId());
                 statement2.setInt(4, request.getUserId());
@@ -144,6 +150,7 @@ public class Employee {
 
             statement1.setInt(3, request.getPetId()); // Bind parameter
             int rowsUpdated = statement1.executeUpdate();
+            statement2.executeUpdate();
             if (rowsUpdated > 0) {
                 loadAdoptionRequests(); // Refresh the list
             }
