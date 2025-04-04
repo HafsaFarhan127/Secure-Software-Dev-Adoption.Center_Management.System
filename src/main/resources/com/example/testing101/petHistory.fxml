@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263F73;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testing101.PetMedicineController">
+   <children>
+      <TableView fx:id="medicineTable" layoutX="54.0" layoutY="43.0" prefHeight="262.0" prefWidth="267.0">
+        <columns>
+          <TableColumn fx:id="medicineCol" prefWidth="75.0" text="Medicine" />
+          <TableColumn fx:id="dosageCol" prefWidth="75.0" text="Dosage" />
+            <TableColumn fx:id="dateCol" prefWidth="75.0" text="Date" />
+        </columns>
+      </TableView>
+      <Button layoutX="54.0" layoutY="319.0" mnemonicParsing="false" onAction="#returnToPrevious" prefHeight="39.0" prefWidth="91.0" text="Return" />
+      <Label layoutX="329.0" layoutY="102.0" text="Medicine:" textFill="WHITE" />
+      <Label layoutX="329.0" layoutY="146.0" text="Dosage:" textFill="WHITE" />
+      <Label layoutX="329.0" layoutY="191.0" text="Date:" textFill="WHITE" />
+      <TextField fx:id="medicineField" layoutX="329.0" layoutY="120.0" />
+      <TextField fx:id="dosageField" layoutX="329.0" layoutY="164.0" />
+      <TextField fx:id="dateField" layoutX="329.0" layoutY="208.0" />
+      <Label fx:id="errorLabel" layoutX="336.0" layoutY="43.0" prefHeight="17.0" prefWidth="231.0" textFill="#ff3838" />
+      <Button layoutX="331.0" layoutY="252.0" mnemonicParsing="false" onAction="#addMedicineAction" text="Add" />
+   </children>
+</AnchorPane>

@@ -48,7 +48,6 @@ public class AllPetsDE implements Initializable {
         ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
         genderCol.setCellValueFactory(new PropertyValueFactory<>("gender"));
         specieCol.setCellValueFactory(new PropertyValueFactory<>("specie"));
-
         loadAvailablePets();
         petTable.setItems(petList);
     }

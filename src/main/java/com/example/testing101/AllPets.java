@@ -35,10 +35,11 @@ public class AllPets implements Initializable {
     @FXML private CheckBox availabilityBox;
     @FXML private CheckBox adoptedBox;
     private String username;
+    private int petId = 0; // this will be carried over to the next page (history page)
     @FXML
     private void updatePetAction(ActionEvent event) {
         if (selectedPetId == -1) {
-            System.out.println("No pet selected.");
+            errorLabel.setText("No pet selected.");
             return;
         }
         //insuring the case where some of the fields are empty
@@ -89,6 +90,12 @@ public class AllPets implements Initializable {
                 petList.clear();
                 loadPetData(); // Refresh table
             }
+            nameField.clear();
+            dobField.clear();
+            specieField.clear();
+            healthStatusField.clear();
+            availabilityBox.setSelected(false);
+            adoptedBox.setSelected(false);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +119,23 @@ public class AllPets implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    public void goHistoryButton(ActionEvent event) throws IOException {
+        if (petId > 0) {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("petHistory.fxml"));
+            Parent root = loader.load();
+            PetMedicineController controller = loader.getController();
+            controller.setPetId(petId);
+            controller.setUsername(username);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        else{
+            errorLabel.setText("You need to select a pet first!");
+            return;
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -165,6 +188,7 @@ public class AllPets implements Initializable {
     }
 
     private void populateForm(PetInfo pet) {
+        this.petId = pet.getId();
         selectedPetId = pet.getId(); // Save pet ID
         nameField.setText(pet.getName());
         dobField.setText(pet.getDob());

@@ -23,6 +23,8 @@ public class Manager {
     public void registerPage(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("addUser.fxml"));
         Parent root = loader.load();
+        AddUser controller = loader.getController();
+        controller.setUsername(this.username);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

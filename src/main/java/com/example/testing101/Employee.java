@@ -31,7 +31,6 @@ public class Employee {
     private Button LogOutButton;
     private Stage stage;
 
-
     //from here is the dynami stuff
     @FXML
     public void initialize() {

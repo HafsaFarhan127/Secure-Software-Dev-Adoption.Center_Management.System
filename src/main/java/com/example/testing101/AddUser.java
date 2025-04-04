@@ -41,11 +41,16 @@ public class AddUser {
     private boolean flag=false;
     private Stage stage;
     private Scene scene;
-
+    private String username;
     private String hashAlgo="SHA-256";
+    public void setUsername(String username){
+        this.username = username;
+    }
     public void goBackButton(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ManagerScreen.fxml"));
         Parent root = fxmlLoader.load();
+        Manager controller = fxmlLoader.getController();
+        controller.setUsername(this.username);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
