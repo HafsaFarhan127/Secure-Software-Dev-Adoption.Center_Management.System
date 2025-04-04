@@ -23,7 +23,7 @@
       <Label layoutX="382.0" layoutY="72.0" prefHeight="17.0" prefWidth="62.0" text="Name:" textFill="WHITE" />
       <Label layoutX="382.0" layoutY="160.0" prefHeight="17.0" prefWidth="62.0" text="Specie:" textFill="WHITE" />
       <Label layoutX="382.0" layoutY="116.0" prefHeight="17.0" prefWidth="105.0" text="Date of Birth:" textFill="WHITE" />
-      <Label layoutX="382.0" layoutY="207.0" prefHeight="17.0" prefWidth="87.0" text="Health status:" textFill="WHITE" />
+      <Label layoutX="382.0" layoutY="207.0" prefHeight="17.0" prefWidth="87.0" text="Health booked:" textFill="WHITE" />
       <TextField fx:id="nameField" layoutX="382.0" layoutY="90.0" />
       <TextField fx:id="dobField" layoutX="382.0" layoutY="134.0" />
       <TextField fx:id="specieField" layoutX="382.0" layoutY="178.0" />

@@ -12,9 +12,9 @@
       <Label layoutX="36.0" layoutY="109.0" prefHeight="17.0" prefWidth="146.0" text="Approximate date of birth" textFill="WHITE" />
       <Label layoutX="36.0" layoutY="140.0" prefHeight="17.0" prefWidth="111.0" text="Gender*" textFill="WHITE" />
       <Label layoutX="36.0" layoutY="173.0" prefHeight="17.0" prefWidth="111.0" text="Specie*" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="200.0" prefHeight="17.0" prefWidth="111.0" text="Adoption status*" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="200.0" prefHeight="17.0" prefWidth="111.0" text="Adoption booked*" textFill="WHITE" />
       <Label layoutX="36.0" layoutY="226.0" prefHeight="17.0" prefWidth="111.0" text="Availability*" textFill="WHITE" />
-      <Label layoutX="36.0" layoutY="261.0" prefHeight="17.0" prefWidth="111.0" text="Health status" textFill="WHITE" />
+      <Label layoutX="36.0" layoutY="261.0" prefHeight="17.0" prefWidth="111.0" text="Health booked" textFill="WHITE" />
       <Button layoutX="484.0" layoutY="335.0" mnemonicParsing="false" onAction="#registerPetAction" prefHeight="37.0" prefWidth="93.0" text="Register" />
       <Button layoutX="36.0" layoutY="325.0" mnemonicParsing="false" onAction="#CancelOption" prefHeight="37.0" prefWidth="93.0" text="Cancel" />
       <TextField fx:id="nameField" layoutX="315.0" layoutY="72.0" prefHeight="25.0" prefWidth="264.0" />
