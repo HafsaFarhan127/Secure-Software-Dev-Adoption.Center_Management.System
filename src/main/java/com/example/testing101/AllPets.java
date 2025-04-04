@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -48,8 +47,8 @@ public class AllPets implements Initializable {
         String dob = (dobField.getText() != null) ? dobField.getText().trim() : "";
         String specie = (specieField.getText() != null) ? specieField.getText().trim() : "";
         String healthStatus = (healthStatusField.getText() != null) ? healthStatusField.getText().trim() : "";
-        boolean adoptionStatus = adoptedBox.isSelected();
-        boolean availability = availabilityBox.isSelected();
+        Boolean adoptionStatus = adoptedBox.isSelected() ? true : false;
+        Boolean availability = availabilityBox.isSelected() ? true :false;
         if (!InputValidationFunctions.isValidLastName(name)){
             errorLabel.setText("Invalid pet name");
             return;
@@ -120,6 +119,7 @@ public class AllPets implements Initializable {
             Parent root = loader.load();
             PetMedicineController controller = loader.getController();
             controller.setPetId(petId);
+            controller.setUsername(username);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);

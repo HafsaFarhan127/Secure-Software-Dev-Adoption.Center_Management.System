@@ -32,13 +32,14 @@ public class PetMedicineController {
 
     // Set by the previous screen when opening this one
     private int petId;
-
+    private String username;
     public void setPetId(int id) {
         this.petId = id;
-        System.out.println(this.petId);
         loadMedicineRecords();
     }
-
+    public void setUsername(String username){
+        this.username = username;
+    }
     @FXML
     private void initialize() {
         medicineCol.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
@@ -142,6 +143,8 @@ public class PetMedicineController {
     private void returnToPrevious(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("AllPets.fxml"));
         Parent root = loader.load();
+        AllPets controller = loader.getController();
+        controller.setUsername(this.username);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();

@@ -38,6 +38,7 @@ public class LoginController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private String fullName;
     public void loginButtonAction(ActionEvent event){
         try{
             authenticate(event);
@@ -69,7 +70,7 @@ public class LoginController {
         }
 
         String username = usernameField.getText();
-        SessionManager.getInstance().setUsername(username); // Store username
+
 
         String password= passwordField.getText();
         if (username.isEmpty() || password.isEmpty()) {
@@ -97,14 +98,15 @@ public class LoginController {
             if (rs.next()) { // I need to do this to add acounts
                 /*UserChangePassword changePassword = new UserChangePassword(stage);
                 changePassword.initializeComponents();*/ //put these lines  to a seprate function for change password .THESELINES GET REPLACES WITH INITILIAZATION OF ADMIN OR EMPLOYEE SCREEN
-                role=rs.getString("role");  //this is how you get a field from sql
+                role=rs.getString("role");//this is how you get a field from sql
                 invalidCount=0; //to reset the counter
-
+                this.fullName = rs.getString("firstName")+" "+rs.getString("lastName");
+                SessionManager.getInstance().setUsername(this.fullName); // Store username
                 if (role.equalsIgnoreCase("desk employee")){
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EmployeeScreen.fxml"));
                     Parent root = fxmlLoader.load();
                     Employee controller = fxmlLoader.getController();
-                    controller.setUsername(username);
+                    controller.setUsername(this.fullName);
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(root);
                     stage.setScene(scene);
@@ -115,7 +117,7 @@ public class LoginController {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("ManagerScreen.fxml"));
                     Parent root = fxmlLoader.load();
                     Manager controller = fxmlLoader.getController();
-                    controller.setUsername(username);
+                    controller.setUsername(this.fullName);
                     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     scene = new Scene(root);
                     stage.setScene(scene);
