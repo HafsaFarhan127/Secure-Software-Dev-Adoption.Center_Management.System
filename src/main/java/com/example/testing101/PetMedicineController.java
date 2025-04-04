@@ -89,20 +89,17 @@ public class PetMedicineController {
         }
 
         try {
-            // Validate date format (yyyy-MM-dd)
-            //LocalDate date = LocalDate.parse(dateStr);
-            String formattedDate = null;
-            if (!dateStr.isEmpty()){
-                formattedDate = InputValidationFunctions.validateAndFormatDOB(dateStr);
-                if (formattedDate == null){
-                    errorLabel.setText("Incorrect Date format");
-                    return;
-                }
-            }
-            int medicineId = getMedicineIdByName(medicineName);
-            if (medicineId == -1) {
-                errorLabel.setText("Medicine not found in database.");
+            String formattedDate = InputValidationFunctions.validateAndFormatDOB(dateStr);
+            if (formattedDate == null) {
+                errorLabel.setText("Incorrect Date format. Use yyyy-MM-dd.");
                 return;
+            }
+
+            int medicineId = getMedicineIdByName(medicineName);
+
+            // If medicine doesn't exist, insert it first
+            if (medicineId == -1) {
+                medicineId = insertNewMedicine(medicineName);
             }
 
             try (Connection conn = DBUtils.establishConnection()) {
@@ -114,7 +111,7 @@ public class PetMedicineController {
                 stmt.setDate(4, Date.valueOf(formattedDate));
                 stmt.executeUpdate();
 
-                errorLabel.setText("Medicine added successfully!");
+                //errorLabel.setText("Medicine assigned successfully!");
                 loadMedicineRecords(); // refresh table
                 medicineField.clear();
                 dosageField.clear();
@@ -122,9 +119,34 @@ public class PetMedicineController {
             }
 
         } catch (Exception e) {
-            errorLabel.setText("Invalid date format. Use yyyy-MM-dd.");
+            e.printStackTrace();
+            errorLabel.setText("Unexpected error occurred.");
         }
     }
+    private int insertNewMedicine(String name) throws SQLException {
+        String insertQuery = "INSERT INTO medicine (name) VALUES (?)";
+        String selectQuery = "SELECT medicineId FROM medicine WHERE name = ?";
+
+        try (Connection conn = DBUtils.establishConnection()) {
+            // Insert new medicine
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+                insertStmt.setString(1, name);
+                insertStmt.executeUpdate();
+            }
+
+            // Retrieve the new medicineId
+            try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
+                selectStmt.setString(1, name);
+                ResultSet rs = selectStmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt("medicineId");
+                }
+            }
+        }
+
+        throw new SQLException("Failed to insert or retrieve new medicine.");
+    }
+
 
     private int getMedicineIdByName(String name) throws SQLException {
         String query = "SELECT medicineId FROM medicine WHERE name = ?";

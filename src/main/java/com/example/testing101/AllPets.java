@@ -39,7 +39,7 @@ public class AllPets implements Initializable {
     @FXML
     private void updatePetAction(ActionEvent event) {
         if (selectedPetId == -1) {
-            System.out.println("No pet selected.");
+            errorLabel.setText("No pet selected.");
             return;
         }
         //insuring the case where some of the fields are empty
@@ -90,6 +90,12 @@ public class AllPets implements Initializable {
                 petList.clear();
                 loadPetData(); // Refresh table
             }
+            nameField.clear();
+            dobField.clear();
+            specieField.clear();
+            healthStatusField.clear();
+            availabilityBox.setSelected(false);
+            adoptedBox.setSelected(false);
 
         } catch (Exception e) {
             e.printStackTrace();
