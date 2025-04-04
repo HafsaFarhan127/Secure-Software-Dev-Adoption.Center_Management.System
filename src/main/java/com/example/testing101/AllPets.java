@@ -46,7 +46,7 @@ public class AllPets implements Initializable {
         String dob = (dobField.getText() != null) ? dobField.getText().trim() : "";
         String specie = (specieField.getText() != null) ? specieField.getText().trim() : "";
         String healthStatus = (healthStatusField.getText() != null) ? healthStatusField.getText().trim() : "";
-        String adoptionStatus = adoptedBox.isSelected() ? "Adopted" : "Not adopted";
+        Boolean adoptionStatus = adoptedBox.isSelected() ? true : false;
         Boolean availability = availabilityBox.isSelected() ? true :false;
         if (!InputValidationFunctions.isValidLastName(name)){
             errorLabel.setText("Invalid pet name");
@@ -74,7 +74,7 @@ public class AllPets implements Initializable {
             stmt.setString(2, dob.isEmpty() ? null : dob);
             stmt.setString(3, specie);
             stmt.setString(4, healthStatus.isEmpty() ? null : healthStatus);
-            stmt.setString(5, adoptionStatus);
+            stmt.setBoolean(5, adoptionStatus);
             stmt.setBoolean(6, availability);
             stmt.setInt(7, selectedPetId);
 

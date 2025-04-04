@@ -6,8 +6,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.awt.desktop.UserSessionListener;
@@ -43,19 +45,26 @@ public class Employee {
 
         try {
 
-            String query = "SELECT * FROM adoptionhistory WHERE booked = ? and Adopted is null;";  //so it doesnt display the accepted requests too
+            String query =
+                    "SELECT ah.*, p.name AS petName, c.firstname AS customerFirstName " +
+                            "FROM adoptionhistory ah " +
+                            "INNER JOIN pet p ON ah.pet_Id = p.Id " +
+                            "INNER JOIN customers c ON ah.customerID = c.customerID " +
+                            "WHERE ah.booked = ? AND ah.Adopted IS NULL;";
             PreparedStatement statement = con.prepareStatement(query);
             statement.setBoolean(1, true); // Bind parameter
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                requests.add(new AdoptionRequest(  //here adoptionrequest now has its varaibles set and i can use the getters to get these values
+                requests.add(new AdoptionRequest(
                         rs.getInt("pet_Id"),
                         rs.getInt("customerID"),
                         rs.getInt("userId"),
                         rs.getDate("Adopted"),
-                        null, // Assuming "returnedDate" is unused here
-                        rs.getBoolean("booked")
+                        null,
+                        rs.getBoolean("booked"),
+                        rs.getString("petName"),          // Added
+                        rs.getString("customerFirstName") // Added
                 ));
             }
             DBUtils.closeConnection(con, statement);
@@ -82,15 +91,26 @@ public class Employee {
 
         // Request Details Label
         Label details = new Label(
-                String.format("Pet ID: %d | Customer ID: %d | User ID: %s",
-                        request.getPetId(),
-                        request.getCustomerId(),
+                String.format("Pet: %s | Customer: %s | User ID: %d",
+                        request.getPetName(),          // Use pet name
+                        request.getCustomerFirstName(), // Use customer first name
                         request.getUserId())
         );
 
+
+
         // Approve Button
         Button approveBtn = new Button("Approve");
-        approveBtn.setStyle("-fx-background-color: #90EE90;");
+        DropShadow greenShadow = new DropShadow();
+        greenShadow.setOffsetX(1.0);
+        greenShadow.setOffsetY(1.0);
+        greenShadow.setRadius(0.0);
+        greenShadow.setWidth(0.0);
+        greenShadow.setHeight(0.0);
+        greenShadow.setColor(Color.rgb(0, 128, 0)); // Dark green color (RGB: 0,128,0)
+
+        approveBtn.setEffect(greenShadow);
+        approveBtn.setStyle("-fx-background-color: #50C878;");
         approveBtn.setOnAction(e -> {
             try {
                 handleApproval(request, true);
@@ -102,7 +122,19 @@ public class Employee {
 
         // Reject Button
         Button rejectBtn = new Button("Reject");
-        rejectBtn.setStyle("-fx-background-color: #FFB6C1;");
+        // Create the DropShadow effect with maroon color
+
+// Apply the effect to your reject button
+        DropShadow maroonShadow = new DropShadow();
+        maroonShadow.setOffsetX(1.0);
+        maroonShadow.setOffsetY(1.0);
+        maroonShadow.setRadius(0.0);
+        maroonShadow.setWidth(0.0);
+        maroonShadow.setHeight(0.0);
+        maroonShadow.setColor(Color.rgb(128, 0, 0)); // Maroon color (RGB: 128,0,0)
+
+        rejectBtn.setEffect(maroonShadow);
+        rejectBtn.setStyle("-fx-background-color: #B22222;");
         rejectBtn.setOnAction(e -> {
             try {
                 handleApproval(request, false);

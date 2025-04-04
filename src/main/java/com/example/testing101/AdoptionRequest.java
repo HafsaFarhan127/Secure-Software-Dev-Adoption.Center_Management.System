@@ -8,31 +8,29 @@ public class AdoptionRequest {
     private int petId;
     private int customerId;
     private int userId;
-    private Date Adopted;
-    private Date returnedDate;
-    private Boolean booked; // "Pending", "Approved", "Rejected"
+    private Date adopted;
+    private Boolean booked;
+    private String petName;          // Added
+    private String customerFirstName; // Added
 
-    // Constructor
-    public AdoptionRequest(int petId, int customerId, int userId,
-                           Date Adopted, Date returnedDate,
-                           Boolean booked) {
+    // Updated constructor
+    public AdoptionRequest(int petId, int customerId, int userId, Date adopted,
+                           Date returnedDate, Boolean booked, String petName, String customerFirstName) {
         this.petId = petId;
         this.customerId = customerId;
         this.userId = userId;
-        this.Adopted = Adopted;
-        this.returnedDate = returnedDate;
+        this.adopted = adopted;
         this.booked = booked;
+        this.petName = petName;           // Initialize new fields
+        this.customerFirstName = customerFirstName;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public int getPetId() {
-        return petId;
-    }
+    // Add getters for new fields
+    public int getPetId() { return petId; }
     public int getCustomerId() { return customerId; }
+    public int getUserId() { return userId; }
+    public Date getAdopted() { return adopted; }
     public Boolean getBooked() { return booked; }
-    public Date getAdopted() { return Adopted; }
-    public Date getReturnedDate() { return returnedDate; }
+    public String getPetName() { return petName; }
+    public String getCustomerFirstName() { return customerFirstName; }
 }
