@@ -127,6 +127,7 @@ public class LoginController {
 
             } else {
                 invalidCount++;
+                showAlert("Authentication Failed", "Invalid credentials..");
                 DBUtils.closeConnection(con, statement);
             }
         } catch (Exception e) {
