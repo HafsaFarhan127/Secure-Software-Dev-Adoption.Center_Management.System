@@ -107,12 +107,12 @@ public class RegisterPet {
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = con.prepareStatement(sql);
         String adoption = "adopted"; //assuming its adopted
-        String available = "available"; // assuming its available
+        Boolean available = true; // assuming its available
         if (!adoptionStatus){
             adoption = "not adopted";
         }
         if (!availablity){
-            available = "not available";
+            available = false;
         }
         stmt.setString(1, name);                                // from nameField
         stmt.setString(2, formattedDob);          // from dobField (format: yyyy-MM-dd)
@@ -120,7 +120,7 @@ public class RegisterPet {
         stmt.setString(4, specie);                              // from specieField
         stmt.setString(5, null);                                // picture is not in the form yet
         stmt.setString(6, adoption);
-        stmt.setString(7, available);
+        stmt.setBoolean(7, available);
         stmt.setString(8, healthStatus.isEmpty() ? null : healthStatus); // from healthStatusField
 
         stmt.executeUpdate();

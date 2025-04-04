@@ -8,11 +8,11 @@ public class PetInfo {
     private int age;
     private String healthStatus;
     private String adoptedStatus;
-    private String availableStatus;
+    private boolean availableStatus;
     private String dob;
 
     public PetInfo(int id,String name, String gender, String specie, int age,
-                   String healthStatus, String adoptedStatus, String availableStatus, String dob) {
+                   String healthStatus, String adoptedStatus, boolean availableStatus, String dob) {
         this.id= id;
         this.name = name;
         this.gender = gender;
@@ -32,7 +32,7 @@ public class PetInfo {
     public int getAge() { return this.age; }
     public String getHealthStatus() { return this.healthStatus; }
     public String getAdoptedStatus() { return this.adoptedStatus; }
-    public String getAvailableStatus() { return this.availableStatus; }
+    public boolean getAvailableStatus() { return this.availableStatus; }
     public String getDob(){return this.dob;}
 }
 

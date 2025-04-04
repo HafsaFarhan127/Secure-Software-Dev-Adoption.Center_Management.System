@@ -47,7 +47,7 @@ public class AllPets implements Initializable {
         String specie = (specieField.getText() != null) ? specieField.getText().trim() : "";
         String healthStatus = (healthStatusField.getText() != null) ? healthStatusField.getText().trim() : "";
         String adoptionStatus = adoptedBox.isSelected() ? "Adopted" : "Not adopted";
-        String availability = availabilityBox.isSelected() ? "Available" : "Not available";
+        Boolean availability = availabilityBox.isSelected() ? true :false;
         if (!InputValidationFunctions.isValidLastName(name)){
             errorLabel.setText("Invalid pet name");
             return;
@@ -66,7 +66,7 @@ public class AllPets implements Initializable {
         }
 
         try (Connection conn = DBUtils.establishConnection()) {
-            String query = "UPDATE pets SET name = ?, dob = ?, specie = ?, healthStatus = ?, "
+            String query = "UPDATE pet SET name = ?, dob = ?, specie = ?, healthStatus = ?, "
                     + "adoptionStatus = ?, availability = ? WHERE Id = ?";
 
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -75,7 +75,7 @@ public class AllPets implements Initializable {
             stmt.setString(3, specie);
             stmt.setString(4, healthStatus.isEmpty() ? null : healthStatus);
             stmt.setString(5, adoptionStatus);
-            stmt.setString(6, availability);
+            stmt.setBoolean(6, availability);
             stmt.setInt(7, selectedPetId);
 
             int rowsUpdated = stmt.executeUpdate();
@@ -131,7 +131,7 @@ public class AllPets implements Initializable {
     }
 
     private void loadPetData() {
-        String query = "SELECT * FROM pets";
+        String query = "SELECT * FROM pet";
 
         try (Connection conn = DBUtils.establishConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
@@ -144,7 +144,7 @@ public class AllPets implements Initializable {
                 String specie = rs.getString("specie");
                 String healthStatus = rs.getString("healthStatus");
                 String adoptionStatus = rs.getString("adoptionStatus");
-                String availability = rs.getString("availability");
+                Boolean availability = rs.getBoolean("availability");
 
                 Date dobDate = rs.getDate("dob");
                 String dobStr = (dobDate != null) ? dobDate.toString() : "";
@@ -170,7 +170,7 @@ public class AllPets implements Initializable {
         dobField.setText(pet.getDob());
         specieField.setText(pet.getSpecie());
         healthStatusField.setText(pet.getHealthStatus());
-        availabilityBox.setSelected("Available".equalsIgnoreCase(pet.getAvailableStatus()));
+        availabilityBox.setSelected(pet.getAvailableStatus());
         adoptedBox.setSelected("Adopted".equalsIgnoreCase(pet.getAdoptedStatus()));
     }
 }

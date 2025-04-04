@@ -8,7 +8,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -17,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginController {
+    private int invalidCount=0;
     @FXML
     private Button loginButton;
     @FXML
@@ -47,15 +57,30 @@ public class LoginController {
 
     /// this method authenticates the user and returns their role
     private void authenticate(ActionEvent event) throws NoSuchAlgorithmException {
+
+        //code to block user if more than 3 attempts
+        if(invalidCount>=3){
+            showForcedAlert(
+                    "Security Alert",
+                    "You must wait 60 seconds before proceeding."
+            );
+            invalidCount=0;
+            return;
+        }
+
         String username = usernameField.getText();
         SessionManager.getInstance().setUsername(username); // Store username
 
         String password= passwordField.getText();
+        if (username.isEmpty() || password.isEmpty()) {
+            showAlert("Invalid","You cant leave password or username blank");
+        }
         try {
             byte[] salt = getSalt(username);
             //String salt = "no salt";
             if (salt == null) {
                 showAlert("Error", "Invalid password.");
+                invalidCount++; //to keep track of attempts
                 return;
             }
             String hashedPassword = AddUser.generateHash(password, "SHA-256", salt);
@@ -73,6 +98,7 @@ public class LoginController {
                 /*UserChangePassword changePassword = new UserChangePassword(stage);
                 changePassword.initializeComponents();*/ //put these lines  to a seprate function for change password .THESELINES GET REPLACES WITH INITILIAZATION OF ADMIN OR EMPLOYEE SCREEN
                 role=rs.getString("role");  //this is how you get a field from sql
+                invalidCount=0; //to reset the counter
 
                 if (role.equalsIgnoreCase("desk employee")){
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EmployeeScreen.fxml"));
@@ -100,14 +126,16 @@ public class LoginController {
 
 
             } else {
-                showAlert("Authentication Failed", "Invalid username or password.");
+                invalidCount++;
                 DBUtils.closeConnection(con, statement);
             }
         } catch (Exception e) {
             //We will still print the exception error in the console to help us in the development
             e.printStackTrace();
             //But we will remove the above line, and display an alert to the user when the app is deployed
-            showAlert("Error", "Authentication failed due to a system error.");
+            invalidCount++;
+            showAlert("Authentication Failed", "Invalid username or password.");
+           // showAlert("Error", "Authentication failed due to a system error.");
         }
     }
 
@@ -156,7 +184,41 @@ public class LoginController {
     }
 
 
-    private static void showAlert(String title, String content) {
+    //alert for lockout
+    public static void showForcedAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+
+        // Disable close button ("X") and minimize/maximize
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.setOnCloseRequest(WindowEvent::consume); // Block closing via X
+
+        // Remove default buttons (OK/Cancel)
+        alert.getButtonTypes().clear();
+
+        // Create a timer to enable closing after 60 seconds
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    // Add OK button after 1 minute
+                    alert.getButtonTypes().add(ButtonType.OK);
+                    // Allow closing now
+                    stage.setOnCloseRequest(null);
+                });
+            }
+        }, 60_000); // 60 seconds in milliseconds
+
+        // Show the alert (blocking)
+        alert.showAndWait();
+    }
+
+
+
+private static void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);

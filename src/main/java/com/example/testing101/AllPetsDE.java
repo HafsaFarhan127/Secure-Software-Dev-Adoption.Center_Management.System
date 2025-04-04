@@ -74,7 +74,8 @@ public class AllPetsDE implements Initializable {
                 // Convert gender abbreviation to full string
                 String fullGender = gender != null && gender.equalsIgnoreCase("m") ? "Male" : "Female";
 
-                PetInfo pet = new PetInfo(id, name, fullGender, specie, age, null, null, null, dobDate != null ? dobDate.toString() : "");
+                //changing here the default to be false for availability
+                PetInfo pet = new PetInfo(id, name, fullGender, specie, age, null, null, false, dobDate != null ? dobDate.toString() : "");
                 petList.add(pet);
             }
 
