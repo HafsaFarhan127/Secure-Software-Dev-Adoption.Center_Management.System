@@ -73,7 +73,7 @@ public class ManagerAppt implements Initializable {
                 int customerId = rs.getInt("customerID");
                 int userId = rs.getInt("userId");
                 String petName = rs.getString("petName");
-                Date dob = rs.getDate("dob");
+                Date dob = rs.getDate("apptDate");
                 int age = dob != null ? Period.between(dob.toLocalDate(), LocalDate.now()).getYears() : 0;
                 String customerName = rs.getString("firstname") + " " + rs.getString("lastname");
                 String apptDate = rs.getDate("apptDate").toString();
