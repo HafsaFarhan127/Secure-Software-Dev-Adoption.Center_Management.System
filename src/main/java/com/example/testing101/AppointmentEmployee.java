@@ -34,7 +34,7 @@ public class AppointmentEmployee {
     private boolean flag=false;
     private Stage stage;
     private Scene scene;
-    private String userID=SessionManager.getInstance().getUsername(); //will be used for logging
+    private String userID=SessionManager.getInstance().getUserID(); //will be used for logging
     @FXML
     public void initialize() {
         errorLabelField.setVisible(false); // Hide by default
@@ -89,7 +89,7 @@ public class AppointmentEmployee {
         // Date of Appt check & conversion
         String formattedApptDate = InputValidationFunctions.isValidApptDate(apptDate);
         if (formattedApptDate == null) {
-            errorLabelField.setText("Invalid Date! Format:dd-mm-yyyy .");
+            errorLabelField.setText("Invalid Date!");
             errorLabelField.setVisible(true); // Show on error
             return ;
         }
@@ -104,7 +104,7 @@ public class AppointmentEmployee {
 
         // Phone check (Qatari number)
         if (!InputValidationFunctions.isValidQatariPhoneNumber(phone)) {
-            errorLabelField.setText("Invalid Phone Number! Must be a valid Qatari phone number with prefixes(+974)");
+            errorLabelField.setText("Invalid Contact! Enter valid Qatari format(+974)");
             errorLabelField.setVisible(true); // Show on error
             return ;
         }

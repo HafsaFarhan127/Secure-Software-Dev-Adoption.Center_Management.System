@@ -109,6 +109,7 @@ public class LoginController {
                 invalidCount=0; //to reset the counter
                 this.fullName = rs.getString("firstName")+" "+rs.getString("lastName");
                 SessionManager.getInstance().setUsername(this.fullName); // Store username
+                SessionManager.getInstance().setUserID(usernameField.getText()); // Store username
                 if (role.equalsIgnoreCase("desk employee")){
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("EmployeeScreen.fxml"));
                     Parent root = fxmlLoader.load();

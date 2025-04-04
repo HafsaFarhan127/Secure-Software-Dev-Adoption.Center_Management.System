@@ -3,6 +3,15 @@ package com.example.testing101;
 public class SessionManager {
     private static SessionManager instance;
     private String username;
+    private String userID;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     private SessionManager() {} // Private constructor
 
