@@ -49,18 +49,26 @@ public class AppointmentEmployee {
     }
 
     @FXML private void bookApptAction(ActionEvent event) throws IOException, SQLException {
-        Integer customerId = customerIdField.getText() != null ? Integer.valueOf(customerIdField.getText()):null;
-        Integer PetID = petIDField.getText() == " " ? null : Integer.valueOf(petIDField.getText());
+
+        // Validate all required fields are filled
+        if (customerIdField.getText().trim().isEmpty() ||
+                petIDField.getText().trim().isEmpty() ||
+                apptDateField.getText().trim().isEmpty() ||
+                apptTimeField.getText().trim().isEmpty() ||
+                phoneField.getText().trim().isEmpty()) {
+
+            errorLabelField.setText("Fields cannot be empty!");
+            errorLabelField.setVisible(true);
+            return;
+        }
+
+        Integer customerId = Integer.valueOf(customerIdField.getText());
+        Integer PetID =  Integer.valueOf(petIDField.getText());
         String apptDate = apptDateField.getText();
         String apptTime = apptTimeField.getText();
         String phone = phoneField.getText();
 
-        //to validate when all fields are empty
-        if (customerIdField.getText().isEmpty() || petIDField.getText().isEmpty() || apptDateField.getText().isEmpty() || apptTimeField.getText().isEmpty() || phoneField.getText().isEmpty()) {
-            errorLabelField.setText("Fields cant be empty!");
-            errorLabelField.setVisible(true); // Show on error
-            return ;
-        }
+
         //to validate ID fields
         if (!InputValidationFunctions.isValidOther_customerID(customerId)) {
             errorLabelField.setText("Invalid ID!");
@@ -85,7 +93,7 @@ public class AppointmentEmployee {
 
         // Time check from 9AM to 5PM
         if (!InputValidationFunctions.isTimeValid(apptTime)) {
-            errorLabelField.setText("Invalid! 9AM-5PM only (e.g., 14:00 or 02:00).");
+            errorLabelField.setText("Invalid! 9AM-5PM only (e.g., 14:00 or 02:00 PM/AM).");
             errorLabelField.setVisible(true); // Show on error
             return ;
         }
