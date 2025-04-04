@@ -7,6 +7,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -15,6 +18,9 @@ import javafx.scene.control.DialogPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import javax.swing.text.html.ImageView;
+import java.awt.*;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,6 +33,7 @@ import java.sql.SQLException;
 
 public class LoginController {
     private int invalidCount=0;
+
     @FXML
     private Button loginButton;
     @FXML

@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.paint.Color?>
@@ -13,10 +15,7 @@
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="378.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="errorLabelField"
-                   layoutX="24.0" layoutY="5.0"
-                   prefWidth="330.0"  textFill="#ff0000"  style="-fx-font-weight: bold;"
-            visible="false" />  <!-- Initially hidden -->
+            <Label fx:id="errorLabelField" layoutX="24.0" layoutY="5.0" prefWidth="330.0" style="-fx-font-weight: bold;" textFill="#ff0000" visible="false" />  <!-- Initially hidden -->
             <Label layoutX="24.0" layoutY="110.0" text="Enter the customer ID:" />
             <Label layoutX="24.0" layoutY="190.0" prefHeight="34.0" prefWidth="146.0" text="Enter appointment date :" />
             <Label layoutX="23.0" layoutY="254.0" text="Enter their phone number:" />
@@ -48,6 +47,11 @@
                         <Font name="Verdana Bold" size="16.0" />
                      </font>
                   </Label>
+                  <ImageView fx:id="imageID" fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@cat1.jpeg" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
             <Label layoutX="42.0" layoutY="215.0" text="(dd-mm-yyyy)" />

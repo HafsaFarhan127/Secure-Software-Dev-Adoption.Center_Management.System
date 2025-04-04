@@ -12,12 +12,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
+import java.awt.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AppointmentEmployee {
+
     @FXML private TextField petIDField;
     @FXML private TextField customerIdField;
     @FXML private TextField phoneField;

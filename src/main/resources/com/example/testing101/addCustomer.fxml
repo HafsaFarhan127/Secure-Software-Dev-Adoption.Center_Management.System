@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -17,6 +19,11 @@
                   <Font name="Verdana Bold" size="16.0" />
                </font>
             </Label>
+            <ImageView fx:id="imageID" fitHeight="174.0" fitWidth="200.0" layoutX="14.0" layoutY="125.0" pickOnBounds="true">
+               <image>
+                  <Image url="@cat3.jpeg" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </left>
