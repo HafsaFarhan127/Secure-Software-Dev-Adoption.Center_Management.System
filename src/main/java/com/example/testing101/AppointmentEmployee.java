@@ -19,7 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AppointmentEmployee {
+public final class AppointmentEmployee {
 
     @FXML private TextField petIDField;
     @FXML private TextField customerIdField;
@@ -119,7 +119,7 @@ public class AppointmentEmployee {
             statement.setInt(3, Integer.parseInt(userID));
             statement.setString(4, apptTime); //this is a way to protect against SQLi.
             statement.setString(5, formattedApptDate);
-            statement.setString(6,phone);  // need to fix this
+            statement.setString(6,phone);
 
 
             //System.out.println(statement.toString());

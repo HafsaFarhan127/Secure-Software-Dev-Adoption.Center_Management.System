@@ -1,0 +1,30 @@
+095c4c3 - Hafsa Farhan, 5 hours ago : Did not in fact get done, made the reset password more secure by adding a security question.
+407647d - Hafsa Farhan, 11 hours ago : Fixed bug that ayoub caused in bookAppt,the userID was getting a username instead of ID
+e670d1f - Hafsa Farhan, 11 hours ago : Merge branch 'main' of https://github.com/HafsaFarhan127/Secure-Software-Dev-Adoption.Center_Management.System i added pictures also i dont see any other merges to resolve
+54e1644 - Hafsa Farhan, 11 hours ago : Added some pictures! I am officially done :)
+077b938 - Ayoub Feki, 11 hours ago : fixed the forum for pet update to clear after the update is sucessful and fixed one error message display
+e5d82fd - Ayoub Feki, 11 hours ago : fixed a bug where the username would disappear between navigation and replaced the desk employee id with their first and last name
+ceb51a3 - Ayoub Feki, 12 hours ago : added the pet history which shows all the medicine they have recieved plus the medicine that can be added by the manager in the future
+f3aa5c7 - Hafsa Farhan, 12 hours ago : Fixed ayoubs bug of availability not being a boolean in some places. Also styled the buttons that were dynamic.next commit i will add a static image and then done!
+412d33b - Hafsa Farhan, 13 hours ago : Added a bug fix for employeeAppt validation for the date and empty fields.
+ac4232c - Hafsa Farhan, 14 hours ago : fixedbug validation for register customer forum and added validation function for appt date.
+f431785 - Hafsa Farhan, 14 hours ago : Fixed the login bug
+977b22f - AyoubFeki, 15 hours ago : Update ManagerAppt.java
+72563a2 - Ayoub Feki, 15 hours ago : the appointment acceptance window for manager has been added and there is a bug in the log in that does not show an error message
+cc38332 - Ayoub Feki, 16 hours ago : reworked the adopted and available columns to boolean values,after that there was a bug in viewing the pets for the desk employee due to an outdated sql statement  and fixed the bug where adding an employee would not have a role
+422ccd6 - Hafsa Farhan, 16 hours ago : added rate-limiting.changed the availablity to boolean in AllPets for the manager ,the screen shows contents but the employee one still doeesnt . Next commit will fix validation for employee forms.the hash algo will remain the same.
+717c0ac - Hafsa Farhan, 19 hours ago : Fixed my dynamic adoptions.Done with my part of the employee only ayoubs view pets left.Next commits, i will implement rate limiting for login and then changing the hash algo to bcrypt.Then i will check validation.
+66a39f7 - Hafsa Farhan, 27 hours ago : Added the dynamic inject of requests however,the buttons are not working instead of triggering button action they initate the page again.Will fix tomorrow
+4956943 - Ayoub Feki, 29 hours ago : added the view pets for desk employee, later on I'll add a space where they can see more details additionally its only showing pets that are not adopted and available
+7f5c6b0 - Hafsa Farhan, 31 hours ago : Merge branch 'main' of https://github.com/HafsaFarhan127/Secure-Software-Dev-Adoption.Center_Management.System this is necessary cuz im adding a new feature
+d527e1f - Hafsa Farhan, 31 hours ago : fixed the appointment registration and added validation,next commits will be the final feature and then fixing bugs for validation of radio buttons then changing hash algo and then rate-limiting
+85cd007 - Ayoub Feki, 32 hours ago : I added the view pets + edit for the manager plus I have introduced anohter input validation method and reworked the date validation method to accept both yyyy-mm-dd and dd-mm-yyyy format because it was giving me grief when retriving the data from sql
+30c8339 - Hafsa Farhan, 34 hours ago : fixed validation for userIDs,added registerAppt,found a bug in Adduser and AddCustomer where it lets you not select the radio buttons.  In next commit i will be fixing the bugs in register Appt.Add user and Add customer. After that we need to rate limit the login page.
+b5cd242 - Hafsa Farhan, 2 days ago : Added the appointment booking fxml and controller,need to fix the sql insert statement. XMPP not working.
+f1e52c3 - Ayoub Feki, 2 days ago : added the pet registration to the manager with validation
+9a26459 - Hafsa Farhan, 2 days ago : fixed previous mentioned bug ,now it successfully redirects. Peer review 1: Ayoub needs to display error msg for gender and also if everyhting right you need to reset the error msg. Done for now.
+1d230c0 - Hafsa Farhan, 2 days ago : fixed bugs for registerCustomer and made it redirect to the employee page. Also created a singleton lcass to pass around variables like username across all controller classes. Next commit fix ayoubs bug of the addUser not redirecting to manager screen.
+a545ab7 - Hafsa Farhan, 2 days ago : Added registerCustomer fxml, added customer table to db and added a controller for customer
+14d7d33 - Hafsa Farhan, 2 days ago : Updated employee fxml hopefully this works now
+2ac13c8 - Hafsa Farhan, 2 days ago : testing the push
+a20c924 - Ayoub Feki, 2 days ago : 3rd initial commit

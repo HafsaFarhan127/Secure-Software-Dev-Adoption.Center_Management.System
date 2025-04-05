@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ResourceBundle;
 
-public class AllPets implements Initializable {
+public final class AllPets implements Initializable {
 
     @FXML private TableView<PetInfo> allPets;
     @FXML private TableColumn<PetInfo, String> nameCol;

@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-public class AddUser {
+public final class AddUser {
     @FXML private TextField petNameField;
     @FXML
     private TextField userIdField;

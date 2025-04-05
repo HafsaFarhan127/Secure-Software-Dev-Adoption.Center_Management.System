@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Arrays;
 
-public class AddCustomer {
+public final class AddCustomer {
     @FXML private Button backButton;
     private String gender;
     @FXML private RadioButton maleRadioButton;

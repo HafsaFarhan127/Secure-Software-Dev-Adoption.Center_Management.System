@@ -102,7 +102,7 @@ public class LoginController {
             //System.out.println(statement.toString());
             ResultSet rs = statement.executeQuery(); //this takes in no param it automatically runs the query cuz of code in line 52.
             //this is called prepared statements and it works because
-            if (rs.next()) { // I need to do this to add acounts
+            if (rs.next()) {
                 /*UserChangePassword changePassword = new UserChangePassword(stage);
                 changePassword.initializeComponents();*/ //put these lines  to a seprate function for change password .THESELINES GET REPLACES WITH INITILIAZATION OF ADMIN OR EMPLOYEE SCREEN
                 role=rs.getString("role");//this is how you get a field from sql

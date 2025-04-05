@@ -3,7 +3,7 @@ package com.example.testing101;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class AdoptionRequest {
+public final class  AdoptionRequest {
 
     private int petId;
     private int customerId;
