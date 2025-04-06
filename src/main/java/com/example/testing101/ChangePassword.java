@@ -33,7 +33,7 @@ public class ChangePassword {
     private int invalidCount=0;
 
     public void changePasswordButton(ActionEvent event){
-                changePassword();
+                changePassword(event);
     }
     public void backToLoginButton(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("loginScreen.fxml"));
@@ -44,7 +44,7 @@ public class ChangePassword {
         stage.show();
     }
 
-    private void changePassword(){
+    private void changePassword(ActionEvent event){
 
         if(invalidCount>=3){
             showForcedAlert(
@@ -90,6 +90,13 @@ public class ChangePassword {
             if (result == 1) {
                 invalidCount=0;
                 showAlert("Success", "Password successfully changed");
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("loginScreen.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
             } else {
                 invalidCount++;
                 //if the username does not exist,this error message gets shown so that an attacker can not figure out if a certain username legitimately exists or not.
