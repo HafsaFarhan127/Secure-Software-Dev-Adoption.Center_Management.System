@@ -163,7 +163,7 @@ public class Employee {
                 statement1.setBoolean(2, false);
                 //these are for query2
                 statement2.setDate(1, Date.valueOf(currentDate));
-                System.out.println(request.getAdopted());
+                //System.out.println(request.getAdopted());
                 statement2.setBoolean(2, true);
                 statement2.setInt(3, request.getPetId());
                 statement2.setInt(4, request.getUserId());
@@ -186,7 +186,7 @@ public class Employee {
                 loadAdoptionRequests(); // Refresh the list
             }
         } catch(Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             showAlert("Failure", "Failed to work");
 
         }

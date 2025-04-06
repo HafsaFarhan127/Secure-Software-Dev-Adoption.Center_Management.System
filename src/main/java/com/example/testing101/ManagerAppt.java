@@ -90,7 +90,7 @@ public class ManagerAppt implements Initializable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -124,7 +124,7 @@ public class ManagerAppt implements Initializable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             statusLabel.setText("Error");
         }
     }
@@ -145,7 +145,7 @@ public class ManagerAppt implements Initializable {
             updateStatusLabelAndButtons();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

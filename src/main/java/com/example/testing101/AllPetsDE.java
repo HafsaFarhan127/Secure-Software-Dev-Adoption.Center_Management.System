@@ -79,7 +79,7 @@ public final class AllPetsDE implements Initializable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 

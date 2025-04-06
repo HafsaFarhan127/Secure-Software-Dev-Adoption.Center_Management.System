@@ -142,7 +142,7 @@ public class LoginController {
             }
         } catch (Exception e) {
             //We will still print the exception error in the console to help us in the development
-            e.printStackTrace();
+           // e.printStackTrace();
             //But we will remove the above line, and display an alert to the user when the app is deployed
             invalidCount++;
             showAlert("Authentication Failed", "Invalid username or password.");
@@ -170,7 +170,7 @@ public class LoginController {
             }
         } catch (SQLException e) {
             //We will still print the exception error in the console to help us in the development
-            e.printStackTrace();
+           // e.printStackTrace();
             //But we will remove the above line, and display an alert to the user when the app is deployed
             showAlert("Error", "Invalid username"); //error msg should it be less descriptive?
             return null;
@@ -178,7 +178,7 @@ public class LoginController {
             try {
                 if (con != null) con.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+               // e.printStackTrace();
             }
         }
     }

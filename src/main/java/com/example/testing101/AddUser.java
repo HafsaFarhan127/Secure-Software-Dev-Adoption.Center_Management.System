@@ -198,11 +198,11 @@ public final class AddUser {
             }
             DBUtils.closeConnection(con, statement);
         }catch(SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             showAlert("Failure", "System be glitching",event);
             errorLabelField.setVisible(false);
         }catch(Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             showAlert("Failure", "Screen be glitching",event);
             errorLabelField.setVisible(false);
         }

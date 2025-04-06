@@ -35,7 +35,7 @@ public class InputValidationFunctions {
             DBUtils.closeConnection(con, statement);
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
     }
@@ -53,7 +53,7 @@ public class InputValidationFunctions {
             DBUtils.closeConnection(con, statement);
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
     }

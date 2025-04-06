@@ -73,7 +73,7 @@ public class PetMedicineController {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
@@ -119,7 +119,7 @@ public class PetMedicineController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
             errorLabel.setText("Unexpected error occurred.");
         }
     }

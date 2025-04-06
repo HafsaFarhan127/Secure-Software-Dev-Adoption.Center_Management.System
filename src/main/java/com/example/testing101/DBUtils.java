@@ -12,9 +12,9 @@ public class DBUtils {
         try{
             con = DriverManager.getConnection(url, appUsername, appPassword);
             //this is just like web2 in connecting to the dbms
-            System.out.println("Connection Successful");
+            //System.out.println("Connection Successful");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
         return con;
     }
@@ -22,7 +22,7 @@ public class DBUtils {
         try{
             stmt.close(); //statement is this
             con.close();
-            System.out.println("Connection is closed");
+            //System.out.println("Connection is closed");
         }catch(SQLException e){
             e.getMessage();
         }

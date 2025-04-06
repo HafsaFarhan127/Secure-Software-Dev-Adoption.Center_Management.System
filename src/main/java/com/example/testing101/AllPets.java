@@ -98,7 +98,7 @@ public final class AllPets implements Initializable {
             adoptedBox.setSelected(false);
 
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
@@ -183,7 +183,7 @@ public final class AllPets implements Initializable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 

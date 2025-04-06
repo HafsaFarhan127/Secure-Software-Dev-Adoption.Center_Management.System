@@ -105,7 +105,7 @@ public class ChangePassword {
             DBUtils.closeConnection(con, statement);
         }catch(Exception e){
             invalidCount++;
-            e.printStackTrace();
+           // e.printStackTrace();
             showAlert("Database Error", "Failed to connect to the database.");
         }
     }

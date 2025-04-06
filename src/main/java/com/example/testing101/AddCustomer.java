@@ -130,7 +130,7 @@ public final class AddCustomer {
             DBUtils.closeConnection(con, statement);
             return true;
         }catch(Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             showAlert("Failure", "Failed to register user",event);
             errorLabelField.setVisible(false);
             return false;
