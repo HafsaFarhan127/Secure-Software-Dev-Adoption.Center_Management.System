@@ -70,7 +70,15 @@ public final class AddUser {
     }
 
     private void registerUser(ActionEvent event) throws IOException {
-        Integer userId = Integer.valueOf(userIdField.getText());
+        Integer userId = -1;
+        try{
+            userId = Integer.valueOf(userIdField.getText());
+        }
+
+        catch (NumberFormatException e){
+            errorLabelField.setText("no empty fields are allowed");
+            errorLabelField.setVisible(true);
+        }
         if (!InputValidationFunctions.isValidUserID(userId)) {
             errorLabelField.setText("Invalid User ID! Please enter a valid numeric User ID.");
             errorLabelField.setVisible(true); // Show on error
@@ -88,11 +96,7 @@ public final class AddUser {
 
 
         // 3. Validate each field with if-else checks:
-        if(firstName.isEmpty() || lastName.isEmpty() || dob.isEmpty() || phone.isEmpty() || gender.isEmpty() || password.isEmpty() || firstPet.isEmpty() ) {
-            errorLabelField.setText("No empty fields!");
-            errorLabelField.setVisible(true); // Show on error
-            return;  // Stop processing if invalid
-        }
+
 
         if (!InputValidationFunctions.isValidUserID(userId)) {
             errorLabelField.setText("Invalid ID! Must be 6 digits only and not be empty.");

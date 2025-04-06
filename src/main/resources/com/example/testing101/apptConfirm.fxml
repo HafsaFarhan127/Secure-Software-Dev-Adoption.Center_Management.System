@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #263F73;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testing101.ManagerAppt">
    <children>
       <TableView fx:id="appointmentTable" layoutX="27.0" layoutY="31.0" prefHeight="294.0" prefWidth="242.0">
@@ -20,8 +19,9 @@
       <Label fx:id="petNameLabel" layoutX="286.0" layoutY="55.0" prefHeight="17.0" prefWidth="113.0" textFill="WHITE" />
       <Label layoutX="286.0" layoutY="81.0" prefHeight="17.0" prefWidth="113.0" text="Customer name:" textFill="WHITE" />
       <Label fx:id="customerNameLabel" layoutX="286.0" layoutY="109.0" prefHeight="17.0" prefWidth="113.0" textFill="WHITE" />
-      <Button layoutX="284.0" layoutY="178.0" mnemonicParsing="false" onAction="#acceptAppointment" text="Accept appoitnment" />
-      <Button layoutX="286.0" layoutY="217.0" mnemonicParsing="false" onAction="#rejectAppointment" text="Reject appoitnment" />
+      <Button fx:id="acceptButton" layoutX="284.0" layoutY="178.0" mnemonicParsing="false" onAction="#acceptAppointment" text="Accept appoitnment" />
+      <Button fx:id="rejectButton" layoutX="286.0" layoutY="217.0" mnemonicParsing="false" onAction="#rejectAppointment" text="Reject appoitnment" />
       <Button layoutX="27.0" layoutY="332.0" mnemonicParsing="false" onAction="#returnToMenu" prefHeight="44.0" prefWidth="97.0" text="Return" />
+      <Label fx:id="statusLabel" layoutX="284.0" layoutY="148.0" prefHeight="17.0" prefWidth="192.0" textFill="WHITE" />
    </children>
 </AnchorPane>

@@ -29,13 +29,19 @@ public class ManagerAppt implements Initializable {
 
     @FXML private Label petNameLabel;
     @FXML private Label customerNameLabel;
+    @FXML private Label statusLabel;
+
+    @FXML private Button acceptButton;
+    @FXML private Button rejectButton;
+
     private String username;
     private final ObservableList<AppointmentInfo> appointments = FXCollections.observableArrayList();
     private AppointmentInfo selectedAppointment;
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         this.username = username;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         petCol.setCellValueFactory(new PropertyValueFactory<>("petName"));
@@ -50,6 +56,7 @@ public class ManagerAppt implements Initializable {
                 selectedAppointment = newVal;
                 petNameLabel.setText(newVal.getPetName());
                 customerNameLabel.setText(newVal.getCustomerName());
+                updateStatusLabelAndButtons();
             }
         });
     }
@@ -74,16 +81,51 @@ public class ManagerAppt implements Initializable {
                 int customerId = rs.getInt("customerID");
                 int userId = rs.getInt("userId");
                 String petName = rs.getString("petName");
-                Date dob = rs.getDate("apptDate");
-                int age = dob != null ? Period.between(dob.toLocalDate(), LocalDate.now()).getYears() : 0;
+                Date apptDateRaw = rs.getDate("apptDate");
+                int age = apptDateRaw != null ? Period.between(apptDateRaw.toLocalDate(), LocalDate.now()).getYears() : 0;
                 String customerName = rs.getString("firstname") + " " + rs.getString("lastname");
-                String apptDate = rs.getDate("apptDate").toString();
+                String apptDate = apptDateRaw.toString();
 
                 appointments.add(new AppointmentInfo(petId, customerId, userId, petName, age, customerName, apptDate));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateStatusLabelAndButtons() {
+        String query = "SELECT booked FROM adoptionhistory WHERE pet_Id = ? AND customerID = ? AND userId = ?";
+
+        try (Connection conn = DBUtils.establishConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, selectedAppointment.getPetId());
+            stmt.setInt(2, selectedAppointment.getCustomerId());
+            stmt.setInt(3, selectedAppointment.getUserId());
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int booked = rs.getInt("booked");
+                if (booked == 1) {
+                    statusLabel.setText("Accepted");
+                } else {
+                    statusLabel.setText("Rejected");
+                }
+                acceptButton.setDisable(true);
+                rejectButton.setDisable(true);
+                acceptButton.setOpacity(0.5);
+                rejectButton.setOpacity(0.5);
+            } else {
+                statusLabel.setText("Pending");
+                acceptButton.setDisable(false);
+                rejectButton.setDisable(false);
+                acceptButton.setOpacity(1);
+                rejectButton.setOpacity(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            statusLabel.setText("Error");
         }
     }
 
@@ -100,6 +142,8 @@ public class ManagerAppt implements Initializable {
             stmt.executeUpdate();
 
             showAlert("Appointment accepted and added to history.");
+            updateStatusLabelAndButtons();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,6 +162,8 @@ public class ManagerAppt implements Initializable {
             stmt.executeUpdate();
 
             showAlert("Appointment rejected and added to history.");
+            updateStatusLabelAndButtons();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
